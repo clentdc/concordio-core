@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<base href="/">
+<title>Concordio Foundation — Reader</title>
+<link rel="stylesheet" href="css/app.css">
+<meta name="description" content="A minimal, offline-first Bible reader built on open Scripture packs. The reusable core of the Concordio project.">
+<meta name="theme-color" content="#0a0c10">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+</head>
+<body>
+<header class="top">
+  <h1 data-i18n="app.title">Concordio Foundation</h1>
+  <div class="controls">
+    <label><span data-i18n="label.book">Book</span>
+      <select id="book" aria-label="Book"></select>
+    </label>
+    <label><span data-i18n="label.chapter">Chapter</span>
+      <select id="chapter" aria-label="Chapter"></select>
+    </label>
+    <label><span data-i18n="label.translation">Translation</span>
+      <select id="translation" aria-label="Translation"></select>
+    </label>
+    <label><span data-i18n="label.language">Interface</span>
+      <select id="lang" aria-label="Interface language"></select>
+    </label>
+    <label><span data-i18n="label.preset">Tradition</span>
+      <select id="denom" aria-label="Denominational preset"></select>
+    </label>
+    <button id="fs-button" class="fs" aria-label="Font size" aria-pressed="false">
+      <span class="fs-glyph" aria-hidden="true">A<span class="fs-plus">+</span></span>
+    </button>
+  </div>
+</header>
+
+<main class="reader">
+  <div class="where" id="where" aria-live="polite"></div>
+  <ol class="verses" id="verses" aria-label="Verses"></ol>
+  <nav class="paging">
+    <button id="prev" data-i18n="nav.prev">Previous</button>
+    <button id="next" data-i18n="nav.next">Next</button>
+  </nav>
+</main>
+
+<footer class="foot">
+  <small data-i18n="footer.credit">Concordio Foundation &middot; open Scripture packs &middot; <a href="docs/README.html">docs</a></small>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

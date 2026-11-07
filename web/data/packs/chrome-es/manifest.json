@@ -1,0 +1,14 @@
+{
+  "id": "chrome-es",
+  "kind": "chrome",
+  "language": "es",
+  "languageName": "Español",
+  "name": "Interfaz en español",
+  "version": "1.0.0",
+  "direction": "ltr",
+  "required": false,
+  "optional": true,
+  "license": "CC BY-SA 4.0",
+  "files": ["strings.json"],
+  "attribution": "Bible Explorer project, 2026. Traducción al castellano."
+}

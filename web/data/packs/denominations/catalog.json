@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "presets": [
+    {
+      "id": "default",
+      "name": "Default",
+      "shortName": "Default",
+      "summary": "A neutral 66-book preset with no tradition-specific framings. Starting point for forks that will supply their own presets.",
+      "defaultTranslation": "bsb"
+    }
+  ],
+  "note": "Fork this file and the per-preset JSONs beside it to supply tradition-specific framings. The kernel ships only the neutral default; richer presets (Protestant, Catholic, Orthodox, Historical Protestant, Anabaptist, Jehovah's Witnesses, etc.) are the responsibility of the downstream application that offers them."
+}

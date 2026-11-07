@@ -1,0 +1,28 @@
+{
+  "fetchHash": "7c51f6a7b93500090a535e80e17417e61086c0c1f9352b85bccd4cb954349dba",
+  "files": {
+    "verses": "verses.json"
+  },
+  "id": "kjv",
+  "kind": "translation",
+  "lang": "en",
+  "license": {
+    "attribution": "King James Version (1611), public domain in the United States. In the United Kingdom rights are vested in the Crown with Cambridge University Press as the Crown's patentee; install this pack only where permitted. See NOTICE.md.",
+    "name": "Public Domain (United States)",
+    "spdx": "LicenseRef-KJV-US-PD",
+    "url": "https://docs.openstax.org/legal/public-domain-overview"
+  },
+  "name": "King James Version",
+  "requires": [],
+  "schemaVersion": 1,
+  "sizeBytes": 4627857,
+  "source": {
+    "modifications": "Markdown-style entity links (`[Cain]([/person/cain)`) stripped to surface text. Verses rekeyed to OSIS id. Underscores and italics markers kept.",
+    "revision": "theographic verses.json (KJV field)",
+    "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
+  },
+  "sourceRef": "744355c",
+  "textDir": "ltr",
+  "verseCount": 31102,
+  "version": "theographic-744355c"
+}

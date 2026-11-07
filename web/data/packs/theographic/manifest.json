@@ -1,0 +1,39 @@
+{
+  "counts": {
+    "books": 66,
+    "chapters": 1189,
+    "events": 450,
+    "people": 3067,
+    "places": 1298,
+    "verses": 31102
+  },
+  "fetchHash": "a2444b2dce9dd39442faf80f3d1b6728e87e8775f21a05239d06dd0f20c31583",
+  "files": {
+    "books": "books.json",
+    "chapters": "chapters.json",
+    "dictionary": "dictionary.json",
+    "events": "events.json",
+    "people": "people.json",
+    "places": "places.json"
+  },
+  "id": "theographic",
+  "kind": "entities",
+  "license": {
+    "attribution": "Theographic Bible Metadata by Robert Rouse, licensed under Creative Commons Attribution-ShareAlike 4.0 International. Easton's Bible Dictionary (M. G. Easton, 1897) and the KJV verse index text are public domain. Chronology within Theographic follows Dr. Floyd Nolen Jones.",
+    "name": "Creative Commons Attribution-ShareAlike 4.0 International",
+    "shareAlike": true,
+    "spdx": "CC-BY-SA-4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
+  "name": "Theographic Bible Metadata",
+  "requires": [],
+  "schemaVersion": 1,
+  "sizeBytes": 2085789,
+  "source": {
+    "modifications": "Books, chapters, people, places, events compacted; verse ids rekeyed to OSIS; entity ids slugified; family/place links rewritten to the new ids; Easton's excerpts shortened to ~320 chars.",
+    "revision": "744355c",
+    "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
+  },
+  "sourceRef": "744355c",
+  "version": "744355c"
+}

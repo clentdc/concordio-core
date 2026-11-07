@@ -1,0 +1,13 @@
+{
+  "name": "Concordio Foundation Reader",
+  "short_name": "Concordio Foundation",
+  "description": "A minimal, offline-first Bible reader built on open Scripture packs. The reusable core of the Concordio project.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0c10",
+  "theme_color": "#0a0c10",
+  "orientation": "any",
+  "icons": [
+    { "src": "icons/icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" }
+  ]
+}

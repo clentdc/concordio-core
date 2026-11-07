@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "default",
+  "name": "Default",
+  "shortName": "Default",
+  "summary": "A neutral 66-book preset with no tradition-specific framings.",
+  "defaultTranslation": "bsb",
+  "defaultTranslationAlternates": ["kjv", "darby"],
+  "canon": {
+    "deuterocanonBooks": [],
+    "apocryphaBooks": []
+  },
+  "psalmNumbering": "hebrew",
+  "bookOrder": "protestant-66",
+  "entityLabels": {},
+  "sources": [],
+  "notes": "Downstream forks should supply their own presets. See docs/PRESETS.md for the schema and examples of what tradition-specific fields can carry."
+}

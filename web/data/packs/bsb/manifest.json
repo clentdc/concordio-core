@@ -1,0 +1,28 @@
+{
+  "fetchHash": "2ac3af1de52d4e68261cba91d85c320b7eadc6560e830d99e591767b8ff5ca96",
+  "files": {
+    "verses": "verses.json"
+  },
+  "id": "bsb",
+  "kind": "translation",
+  "lang": "en",
+  "license": {
+    "attribution": "Berean Standard Bible, dedicated to the public domain by the Berean Bible Translation Committee on April 30, 2023. Produced in cooperation with Bible Hub, Discovery Bible, unfoldingWord, Bible Aquifer, OpenBible.com, and the Berean Bible Translation Committee.",
+    "name": "Public Domain",
+    "spdx": "CC-PDDC",
+    "url": "https://berean.bible/licensing.htm"
+  },
+  "name": "Berean Standard Bible",
+  "requires": [],
+  "schemaVersion": 1,
+  "sizeBytes": 4314175,
+  "source": {
+    "modifications": "Each verse rekeyed to OSIS id; tab-separated plain text parsed into a verseId → text JSON object. Preamble lines dropped.",
+    "revision": "bsb.txt",
+    "upstream": "https://bereanbible.com/bsb.txt"
+  },
+  "sourceRef": "2ac3af1de52d",
+  "textDir": "ltr",
+  "verseCount": 31102,
+  "version": "2026.10"
+}

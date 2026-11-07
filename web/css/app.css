@@ -1,0 +1,50 @@
+/* Concordio Foundation — minimal reader styles.
+   Plain vertical reader, no visualizer, no brand chrome. */
+:root{
+  --bg:#0a0c10;
+  --panel:#11141a;
+  --line:#242a33;
+  --fg:#d9dde3;
+  --muted:#7b828e;
+  --accent:#e6e05a;
+  --f-ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --f-read:"Newsreader",Georgia,"Times New Roman",serif;
+  --fs-sm:13px;--fs-base:16px;--fs-md:20px;--fs-lg:26px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--f-ui);font-size:var(--fs-sm);min-height:100%}
+a{color:var(--accent)}
+
+html.fs-lg{--fs-sm:16px;--fs-base:20px;--fs-md:25px;--fs-lg:32px}
+html.fs-xl{--fs-sm:19px;--fs-base:24px;--fs-md:30px;--fs-lg:38px}
+
+.top{display:flex;flex-direction:column;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+.top h1{margin:0;font-size:var(--fs-md);font-weight:600;letter-spacing:.01em}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.controls label{display:flex;flex-direction:column;gap:3px;font-size:var(--fs-sm);color:var(--muted)}
+.controls select,.controls button{background:#0e1116;border:1px solid var(--line);color:var(--fg);font:inherit;padding:6px 9px;border-radius:4px}
+.controls .fs{align-self:stretch;cursor:pointer;min-width:52px}
+.controls .fs .fs-glyph{display:inline-flex;align-items:baseline}
+.controls .fs .fs-plus{font-size:.6em;margin-left:2px;color:var(--accent)}
+
+.reader{max-width:68ch;margin:0 auto;padding:20px 20px 80px;font-family:var(--f-read);font-size:var(--fs-base);line-height:1.618}
+.where{font-family:var(--f-ui);font-size:var(--fs-sm);color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}
+.verses{list-style:none;margin:0;padding:0}
+.verses li{margin:0 0 .5em;padding:0;display:flex;gap:.5em;align-items:baseline}
+.verses li .vnum{flex:0 0 2.5em;color:var(--muted);font-family:var(--f-ui);font-size:var(--fs-sm);font-variant-numeric:tabular-nums;text-align:right;padding-top:.15em}
+.verses li .vtext{flex:1 1 auto}
+
+.paging{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
+.paging button{background:#0e1116;border:1px solid var(--line);color:var(--fg);padding:8px 14px;border-radius:4px;font:inherit;cursor:pointer}
+.paging button:disabled{opacity:.4;cursor:not-allowed}
+
+.foot{border-top:1px solid var(--line);padding:12px 18px;color:var(--muted);text-align:center;font-size:var(--fs-sm)}
+
+@media (max-width:600px){
+  .controls label{flex:1 1 44%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}

@@ -1,0 +1,14 @@
+{
+  "id": "chrome-en",
+  "kind": "chrome",
+  "language": "en",
+  "languageName": "English",
+  "name": "English interface",
+  "version": "1.0.0",
+  "direction": "ltr",
+  "required": true,
+  "optional": false,
+  "license": "CC BY-SA 4.0",
+  "files": ["strings.json"],
+  "attribution": "Bible Explorer project, 2026."
+}

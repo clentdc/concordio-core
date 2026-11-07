@@ -1,0 +1,33 @@
+{
+  "id": "darby",
+  "kind": "translation",
+  "schemaVersion": 1,
+  "name": "Darby Bible",
+  "shortName": "DBY",
+  "lang": "en",
+  "language": "en",
+  "languageName": "English",
+  "textDir": "ltr",
+  "year": 1890,
+  "version": "2026.11",
+  "verseCount": 31099,
+  "sizeBytes": 4539960,
+  "files": {
+    "verses": "verses.json"
+  },
+  "requires": [],
+  "license": {
+    "name": "Public Domain",
+    "spdx": "CC-PDDC",
+    "url": "https://en.wikipedia.org/wiki/Public_domain",
+    "attribution": "The Holy Scriptures, a New Translation from the Original Languages by J. N. Darby (1884, 1890). Public domain. Text from eBible.org."
+  },
+  "source": {
+    "upstream": "https://ebible.org/Scriptures/engDBY_vpl.zip",
+    "revision": "engDBY_vpl.txt",
+    "fetchHash": "7eb1df2a434f5bbd831591aa96c08e94b900b1458fda74ccf1d1739d5af73619",
+    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books dropped to match the Protestant shelf.",
+    "droppedBooks": []
+  },
+  "note": "Protestant canon, 66 books, no deuterocanon. Verse keying matches Theographic."
+}

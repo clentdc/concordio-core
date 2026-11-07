@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 2,
+  "packs": [
+    {
+      "id": "theographic",
+      "kind": "entities",
+      "version": "744355c",
+      "required": true,
+      "optional": false,
+      "default": false,
+      "sizeBytes": 2085789,
+      "license": "CC-BY-SA-4.0",
+      "attribution": "Theographic Bible Metadata (Robert Rouse). https://github.com/robertrouse/theographic-bible-metadata"
+    },
+    {
+      "id": "bsb",
+      "kind": "translation",
+      "language": "en",
+      "languageName": "English",
+      "name": "Berean Standard Bible",
+      "version": "2026.10",
+      "required": false,
+      "optional": true,
+      "default": true,
+      "sizeBytes": 4314175,
+      "license": "CC-BY-SA-4.0",
+      "attribution": "Berean Standard Bible. BibleHub. https://berean.bible/"
+    },
+    {
+      "id": "kjv",
+      "kind": "translation",
+      "language": "en",
+      "languageName": "English",
+      "name": "King James Version",
+      "version": "theographic-744355c",
+      "required": false,
+      "optional": true,
+      "default": false,
+      "sizeBytes": 4627857,
+      "license": "public-domain",
+      "attribution": "King James Version (1769 Blayney edition). Public domain."
+    },
+    {
+      "id": "darby",
+      "kind": "translation",
+      "language": "en",
+      "languageName": "English",
+      "name": "Darby Bible",
+      "version": "2026.11",
+      "required": false,
+      "optional": true,
+      "default": false,
+      "sizeBytes": 4540000,
+      "license": "public-domain",
+      "attribution": "J. N. Darby translation (1890). Public domain."
+    },
+    {
+      "id": "douay-rheims",
+      "kind": "translation",
+      "language": "en",
+      "languageName": "English",
+      "name": "Douay-Rheims Challoner",
+      "version": "2026.11",
+      "required": false,
+      "optional": true,
+      "default": false,
+      "sizeBytes": 4538000,
+      "license": "public-domain",
+      "attribution": "Douay-Rheims Bible, Challoner revision (1752). Public domain."
+    },
+    {
+      "id": "vulgata-clementina",
+      "kind": "translation",
+      "language": "la",
+      "languageName": "Latin",
+      "name": "Vulgata Clementina",
+      "version": "2026.11",
+      "required": false,
+      "optional": true,
+      "default": false,
+      "sizeBytes": 4005000,
+      "license": "public-domain",
+      "attribution": "Vulgata Clementina (1592). Public domain."
+    },
+    {
+      "id": "chrome-en",
+      "kind": "chrome",
+      "language": "en",
+      "languageName": "English",
+      "name": "English interface",
+      "version": "1.0.0",
+      "required": true,
+      "optional": false,
+      "default": true,
+      "sizeBytes": 2500,
+      "license": "Apache-2.0"
+    },
+    {
+      "id": "chrome-es",
+      "kind": "chrome",
+      "language": "es",
+      "languageName": "Español",
+      "name": "Interfaz en español",
+      "version": "1.0.0",
+      "required": false,
+      "optional": true,
+      "default": false,
+      "sizeBytes": 2800,
+      "license": "Apache-2.0"
+    }
+  ]
+}

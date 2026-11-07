@@ -1,0 +1,41 @@
+{
+  "id": "vulgata-clementina",
+  "kind": "translation",
+  "schemaVersion": 1,
+  "name": "Vulgata Clementina",
+  "shortName": "VUC",
+  "lang": "la",
+  "language": "la",
+  "languageName": "Latin",
+  "textDir": "ltr",
+  "year": 1592,
+  "version": "2026.11",
+  "verseCount": 31434,
+  "sizeBytes": 4005511,
+  "files": {
+    "verses": "verses.json"
+  },
+  "requires": [],
+  "license": {
+    "name": "Public Domain",
+    "spdx": "CC-PDDC",
+    "url": "https://en.wikipedia.org/wiki/Public_domain",
+    "attribution": "Biblia Sacra Vulgata Clementina (1592). Public domain. Text from eBible.org."
+  },
+  "source": {
+    "upstream": "https://ebible.org/Scriptures/latVUC_vpl.zip",
+    "revision": "latVUC_vpl.txt",
+    "fetchHash": "bf13a76cc8131fd469a48158c79d9b2adcaad15766ec53852322fb71ca25301b",
+    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books dropped to match the Protestant shelf.",
+    "droppedBooks": [
+      "1MA",
+      "2MA",
+      "BAR",
+      "JDT",
+      "SIR",
+      "TOB",
+      "WIS"
+    ]
+  },
+  "note": "Pope Clement VIII's edition, the Catholic Church's standard Latin Bible from 1592 to the Nova Vulgata of 1979. Shipped with the 66 Protestant books only; the 7 deuterocanonical books are dropped as above."
+}
