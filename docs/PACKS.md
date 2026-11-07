@@ -95,7 +95,7 @@ A flat object of i18n keys to translated strings:
 
 ```json
 {
-  "app.title": "Concordio Foundation",
+  "app.title": "Concordio Core",
   "label.book": "Book",
   "label.chapter": "Chapter"
 }

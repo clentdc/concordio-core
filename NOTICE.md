@@ -28,7 +28,7 @@ pack retains its own licence as named in its `manifest.json`.
 - **Open-source fonts**: Inter (SIL OFL), Newsreader (SIL OFL). Fonts are
   linked from Google Fonts in `web/index.html`; this repository ships no
   font files.
-- **Apache License 2.0** code written for the Concordio Foundation kernel by
+- **Apache License 2.0** code written for the Concordio Core kernel by
   Clent Crumley and contributors.
 
 ## Trademarks

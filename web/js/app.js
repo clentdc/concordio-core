@@ -1,4 +1,4 @@
-/* Concordio Foundation — minimal reader.
+/* Concordio Core — minimal reader.
  *
  * Loads book metadata from the theographic pack, verse text from a
  * translation pack, UI strings from a chrome pack, and optional

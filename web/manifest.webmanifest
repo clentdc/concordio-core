@@ -1,6 +1,6 @@
 {
-  "name": "Concordio Foundation Reader",
-  "short_name": "Concordio Foundation",
+  "name": "Concordio Core Reader",
+  "short_name": "Concordio Core",
   "description": "A minimal, offline-first Bible reader built on open Scripture packs. The reusable core of the Concordio project.",
   "start_url": "/",
   "display": "standalone",

@@ -1,10 +1,10 @@
-/* Concordio Foundation — service worker.
+/* Concordio Core — service worker.
  * Offline-first for the app shell; cache-first for same-origin resources;
  * pack catalog and per-pack manifests are network-first so updates land.
  * Bump CACHE_VERSION with any change under web/.
  */
 const CACHE_VERSION = 'v1';
-const CACHE = `concordio-foundation-${CACHE_VERSION}`;
+const CACHE = `concordio-core-${CACHE_VERSION}`;
 const PRECACHE = [
   './',
   './index.html',
@@ -28,7 +28,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k.startsWith('concordio-foundation-') && k !== CACHE).map(k => caches.delete(k)));
+    await Promise.all(keys.filter(k => k.startsWith('concordio-core-') && k !== CACHE).map(k => caches.delete(k)));
     await self.clients.claim();
   })());
 });

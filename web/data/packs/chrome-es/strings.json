@@ -1,5 +1,5 @@
 {
-  "app.title": "Concordio Foundation",
+  "app.title": "Concordio Core",
   "label.book": "Libro",
   "label.chapter": "Capítulo",
   "label.translation": "Traducción",
@@ -8,6 +8,6 @@
   "nav.prev": "Anterior",
   "nav.next": "Siguiente",
   "fs.title": "Tamaño de letra",
-  "footer.credit": "Concordio Foundation — paquetes bíblicos abiertos",
+  "footer.credit": "Concordio Core — paquetes bíblicos abiertos",
   "loading": "Cargando…"
 }

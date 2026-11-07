@@ -1,4 +1,4 @@
-# Concordio Foundation
+# Concordio Core
 
 A minimal, offline-first Bible reader built on open Scripture packs. The reusable
 core of the [Concordio](https://concordio.org) project, released separately so
