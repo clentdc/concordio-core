@@ -30,7 +30,7 @@ import zipfile
 from dataclasses import dataclass
 from typing import Iterator
 
-# eBible 3-letter book codes to OSIS. Only the 66 Protestant books.
+# eBible 3-letter book codes to OSIS, protestant canon.
 OSIS: dict[str, str] = {
     "GEN": "Gen", "EXO": "Exod", "LEV": "Lev", "NUM": "Num", "DEU": "Deut",
     "JOS": "Josh", "JDG": "Judg", "RUT": "Ruth",
@@ -49,8 +49,14 @@ OSIS: dict[str, str] = {
     "1JO": "1John", "2JO": "2John", "3JO": "3John", "JUD": "Jude", "REV": "Rev",
 }
 
-# Deuterocanonical and apocryphal books, dropped from Protestant packs.
-DEUTEROCANON: set[str] = {"TOB", "JDT", "WIS", "SIR", "BAR", "1MA", "2MA", "MAN", "3MA", "4MA", "1ES", "2ES"}
+# Deuterocanonical and apocryphal books. Dropped for Protestant packs;
+# mapped to OSIS and shipped when a translation opts in (include_apocrypha=True).
+# References: Pitts OSIS Scripture Reference manual; SBL Handbook of Style.
+DEUTEROCANON: dict[str, str] = {
+    "TOB": "Tob", "JDT": "Jdt", "WIS": "Wis", "SIR": "Sir", "BAR": "Bar",
+    "1MA": "1Macc", "2MA": "2Macc", "3MA": "3Macc", "4MA": "4Macc",
+    "1ES": "1Esd", "2ES": "2Esd", "MAN": "PrMan",
+}
 
 LINE_RE = re.compile(r"^(?P<book>\S+)\s+(?P<ch>\d+):(?P<v>\d+)\s+(?P<text>.+)$")
 
@@ -68,6 +74,7 @@ class Translation:
     attribution: str
     license_url: str
     note: str
+    include_apocrypha: bool = False
 
 
 TRANSLATIONS: list[Translation] = [
@@ -81,7 +88,7 @@ TRANSLATIONS: list[Translation] = [
         year=1890,
         ebible_id="engDBY",
         attribution="The Holy Scriptures, a New Translation from the Original Languages by J. N. Darby (1884, 1890). Public domain. Text from eBible.org.",
-        license_url="https://en.wikipedia.org/wiki/Public_domain",
+        license_url="https://ebible.org/engDBY/copyright.htm",
         note="Protestant canon, 66 books, no deuterocanon. Verse keying matches Theographic.",
     ),
     Translation(
@@ -94,8 +101,9 @@ TRANSLATIONS: list[Translation] = [
         year=1899,
         ebible_id="engDRA",
         attribution="Douay-Rheims-Challoner Bible, English translation from the Latin Vulgate. Public domain. Text from eBible.org.",
-        license_url="https://en.wikipedia.org/wiki/Public_domain",
-        note="Challoner revision (1750 / 1899 printing). Shipped here with the 66 Protestant books only; the 7 deuterocanonical books of the Douay-Rheims (Tobit, Judith, Wisdom, Sirach, Baruch, 1-2 Maccabees) are available in the upstream file but dropped by this pack because the app's shelf is the Protestant canon. See the manifest for the full list.",
+        license_url="https://ebible.org/engDRA/copyright.htm",
+        note="Challoner revision (1750 / 1899 printing). Includes the 7 deuterocanonical books (Tobit, Judith, Wisdom, Sirach, Baruch, 1-2 Maccabees) that form the Catholic canon. The Greek additions to Esther and Daniel are rendered where present in the upstream VPL.",
+        include_apocrypha=True,
     ),
     Translation(
         pack_id="vulgata-clementina",
@@ -104,11 +112,12 @@ TRANSLATIONS: list[Translation] = [
         language="la",
         language_name="Latin",
         direction="ltr",
-        year=1592,
+        year=1598,
         ebible_id="latVUC",
-        attribution="Biblia Sacra Vulgata Clementina (1592). Public domain. Text from eBible.org.",
-        license_url="https://en.wikipedia.org/wiki/Public_domain",
-        note="Pope Clement VIII's edition, the Catholic Church's standard Latin Bible from 1592 to the Nova Vulgata of 1979. Shipped with the 66 Protestant books only; the 7 deuterocanonical books are dropped as above.",
+        attribution="Biblia Sacra Vulgata Clementina (1598 edition, as described by eBible.org). Public domain. Text from eBible.org.",
+        license_url="https://ebible.org/latVUC/copyright.htm",
+        note="Clementine Vulgate, 1598 edition as published by eBible.org (its description: \"Clementine Vulgate of 1598 with Glossa Ordinaria, Migne edition 1880\"; the Verse-Per-Line file carries the Bible text only). Ships with the Catholic canon including the deuterocanonical books.",
+        include_apocrypha=True,
     ),
 ]
 
@@ -132,10 +141,16 @@ def build_pack(t: Translation, cache_dir: pathlib.Path, out_dir: pathlib.Path) -
 
     verses: dict[str, str] = {}
     dropped_books: set[str] = set()
+    included_apocrypha: set[str] = set()
     unknown_books: set[str] = set()
     for book, ch, v, text in iter_vpl(vpl_path):
         if book in DEUTEROCANON:
-            dropped_books.add(book)
+            if t.include_apocrypha:
+                osis = DEUTEROCANON[book]
+                verses[f"{osis}.{ch}.{v}"] = text
+                included_apocrypha.add(book)
+            else:
+                dropped_books.add(book)
             continue
         osis = OSIS.get(book)
         if not osis:
@@ -166,14 +181,16 @@ def build_pack(t: Translation, cache_dir: pathlib.Path, out_dir: pathlib.Path) -
         "languageName": t.language_name,
         "textDir": t.direction,
         "year": t.year,
-        "version": "2026.11",
+        "version": "2026.11-dc" if t.include_apocrypha else "2026.11",
         "verseCount": len(verses),
         "sizeBytes": size_bytes,
         "files": {"verses": "verses.json"},
+        "canon": "catholic-73" if t.include_apocrypha else "protestant-66",
+        "deuterocanon": sorted({DEUTEROCANON[b] for b in included_apocrypha}),
         "requires": [],
         "license": {
             "name": "Public Domain",
-            "spdx": "CC-PDDC",
+            "spdx": "LicenseRef-Public-Domain",
             "url": t.license_url,
             "attribution": t.attribution,
         },
@@ -181,8 +198,12 @@ def build_pack(t: Translation, cache_dir: pathlib.Path, out_dir: pathlib.Path) -
             "upstream": f"https://ebible.org/Scriptures/{t.ebible_id}_vpl.zip",
             "revision": f"{t.ebible_id}_vpl.txt",
             "fetchHash": fetch_hash,
-            "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books dropped to match the Protestant shelf.",
+            "modifications": (
+                "VPL parsed; book codes mapped to OSIS; deuterocanonical books "
+                + ("mapped to OSIS and included." if t.include_apocrypha else "dropped to match the Protestant shelf.")
+            ),
             "droppedBooks": sorted(dropped_books),
+            "apocryphaBooks": sorted(included_apocrypha),
         },
         "note": t.note,
     }

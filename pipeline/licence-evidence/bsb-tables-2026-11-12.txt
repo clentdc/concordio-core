@@ -1,0 +1,23 @@
+Licence evidence for pack bsb-tables, fetched 2026-11-12 (text extracted from the pages; navigation menus removed).
+
+== https://berean.bible/licensing.htm (HTTP 200)
+Licensing: The Berean Bible and Majority Bible texts are officially placed into the public domain as of April 30, 2023. See terms and conditions . Licensing is not required for any use. However, you are welcome to complete the licensing form in order to receive communications as we develop new resources. Click here for the brief licensing form.
+
+== https://berean.bible/terms.htm (HTTP 200)
+Terms and Conditions April 30, 2023 Terms and Conditions: The Berean Bible and Majority Bible texts are officially dedicated to the public domain as of April 30, 2023. All uses are freely permitted. Attribution Notice (appreciated but not required): The Holy Bible, Berean Standard Bible, BSB is produced in cooperation with Bible Hub , Discovery Bible , OpenBible.com , and the Berean Bible Translation Committee. This text of God's Word has been dedicated to the public domain . Linking (appreciated but not required): //berean.bible - Berean Bible Homepage //interlinearbible.com - Berean Interlinear Bible //literalbible.com - Berean Literal Bible //bereanbible.com - Berean Standard Bible //majoritybible.com - Majority Standard Bible Derivatives and Adaptations By definition all public domain materials may be freely reproduced, integrated, and adapted for both free and commercial resources. All applications that maintain the verbatim text from the above Berean sites are invited to bear the Berean name. For example, apps, audio, video, print reproductions, and commentaries with cited verses are all encouraged to use and cite the official text. For derivative works that vary from the official text, we respectfully request that the Berean name is not used. We request the help of the open source community in maintaining an official text. Print Applications Developers and Publishers are now free to produce and sell the full Berean Bible in any print format. We will also make available our own resources via PDF. We hope this will expand the possibilities for overseas publishing and specialties such as wide margin, single column, red letter, and Scripture portions.
+
+== https://berean.bible/downloads.htm (HTTP 200): lists 'BSB Translation Tables - xlsx' and 'BSB Translation Tables - tsv' (//bereanbible.com/bsb_tables.tsv) under Free Downloads. File served with Last-Modified Tue, 27 Oct 2026 22:59:58 GMT, 85525369 bytes.
+
+== https://bereanbibles.com/terms-and-conditions/ (HTTP 200, shop site): STALE and in conflict. It still carries pre-2023 terms (copyright (c) 2016, 2018 Bible Hub, 'not permitted to alter the text or produce derivatives', licence form required). The 2023-04-30 dedication on berean.bible supersedes it by its date; confirm with Berean.
+
+== https://interlinearbible.com/ (HTTP 200): describes the Berean Interlinear Bible (NT, PDF and Word only) as based on the 'Biblos Interlinear'; Greek base text Nestle 1904. The BSB Translation Tables are a separate file on the free downloads page. Whether the dedication covers the parsing and Strong's columns is inferred from the page layout, not stated.
+
+== https://raw.githubusercontent.com/openscriptures/strongs/0acd2f251c2d35ff8db2dece4e0593979d3ac223/greek/StrongsGreekDictionaryXML_1.4/strongsgreek.xml prologue: 'Dictionary of Greek Words taken from Strong's Exhaustive Concordance by James Strong ... 1890. Public Domain -- Copy Freely. The XML version ... prepared in 2006 by Ulrik Petersen'. (The sibling strongs-greek-dictionary.js and strongs-hebrew-dictionary.js say 'Copyright 2009/2010, Open Scriptures. CC-BY-SA. Derived from XML.' and are NOT used.)
+
+== .../hebrew/StrongHebrewG.xml header: work 'A Concise Dictionary of the Words in the Hebrew Bible' by James Strong (1894), <rights>Public Domain</rights>; description: 'The data came from several PD sources ...'. Editing, corrections and Unicode transliterations by David Troidl. Only the lemma, xlit and the 'explanation' note are used.
+
+== SHA-256 of the inputs reviewed
+bsb_tables.tsv      aa2a9a0f004d015738cd1839c7c56c3be2549e0d4f4537090c2017268c223c60
+strongsgreek.xml    df928f01b37632f8af9f16289ce58d10b958014cb5dbd1e1ea715a8d311a0625
+StrongHebrewG.xml   1f9659ea208f4c498843a0280dacb1448627c33ca77712642d8705793ab66061
+openscriptures/strongs commit 0acd2f251c2d35ff8db2dece4e0593979d3ac223 (2021-07-15)
