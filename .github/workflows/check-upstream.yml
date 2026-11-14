@@ -1,0 +1,63 @@
+name: Weekly upstream check
+
+# Refetches the sources core builds from (Theographic, the Berean Standard Bible), rebuilds
+# those packs, runs every check, and opens a pull request if anything changed. The PR body
+# shows the manifest diffs: which upstream moved, to what revision, by how many bytes.
+# A rebuild that produces byte-identical output opens no PR.
+#
+# Needs the repository setting: Settings > Actions > General > Workflow permissions >
+# "Allow GitHub Actions to create and approve pull requests".
+on:
+  schedule:
+    - cron: '17 7 * * 1'  # Mondays 07:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with: { node-version: 20 }
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with: { python-version: '3.12' }
+
+      - name: Rebuild packs from the latest upstreams
+        run: make refresh-data
+
+      - name: Run the checks against the rebuilt packs
+        run: make check
+
+      - name: Summarize what changed
+        id: diff
+        run: |
+          CHANGED=$(git status --porcelain web/data/packs/ pipeline/slug-lock.json | wc -l | tr -d ' ')
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+          if [ "$CHANGED" != "0" ]; then
+            {
+              echo "## Manifest diffs"
+              echo
+              echo '```diff'
+              git diff --unified=1 -- web/data/packs/*/manifest.json web/data/packs/index.json || true
+              echo '```'
+              echo
+              echo "Slug lock changes: $(git diff --numstat -- pipeline/slug-lock.json | cut -f1) lines added."
+            } > "$RUNNER_TEMP/pr-body.md"
+          fi
+
+      - name: Open a PR with the refreshed packs
+        if: steps.diff.outputs.changed != '0'
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6
+        with:
+          commit-message: "data: refresh packs from upstream"
+          branch: data/refresh-upstream
+          delete-branch: true
+          title: "data: refresh packs from upstream"
+          body-path: ${{ runner.temp }}/pr-body.md
+          add-paths: |
+            web/data/packs/**
+            pipeline/slug-lock.json

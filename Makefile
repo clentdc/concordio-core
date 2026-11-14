@@ -12,7 +12,7 @@ SXML    := $(CACHE)/strongs-xml
 BTAB_SHA  := aa2a9a0f004d015738cd1839c7c56c3be2549e0d4f4537090c2017268c223c60
 STRONGS_C := 0acd2f251c2d35ff8db2dece4e0593979d3ac223
 
-.PHONY: help serve data check test fetch fetch-theographic fetch-bsb fetch-stepbible fetch-bsb-tables
+.PHONY: help serve data refresh-data check test fetch fetch-theographic fetch-bsb fetch-stepbible fetch-bsb-tables
 
 help:            ## List the available tasks
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*##/ -/'
@@ -60,6 +60,15 @@ fetch: fetch-theographic fetch-bsb fetch-stepbible fetch-bsb-tables  ## Download
 #   python3 -I pipeline/build.py .cache --only theographic
 data: fetch      ## Rebuild every pack the pipeline owns (overwrites index.json: review the diff)
 	$(PY) -I pipeline/build.py $(CACHE)
+
+# The weekly job. It rebuilds only the packs core tracks in git (index.json also holds
+# hand-maintained rows, so a full `make data` would overwrite it) and fetches no big packs.
+refresh-data:    ## Pull the latest Theographic and BSB, then rebuild those packs (and KJV) in web/data/packs/
+	$(MAKE) $(THEO) $(BSB_TXT)
+	git -C $(THEO) pull --ff-only
+	rm -f $(BSB_TXT)
+	$(MAKE) $(BSB_TXT)
+	for id in theographic bsb kjv; do $(PY) -I pipeline/build.py $(CACHE) --only $$id || exit 1; done
 
 check:           ## Run the data, licence and reserved-material checks
 	node --check web/js/app.js
