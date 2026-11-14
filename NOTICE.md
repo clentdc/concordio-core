@@ -9,7 +9,7 @@ pack retains its own licence as named in its `manifest.json`.
 | Pack | Source | Licence |
 | --- | --- | --- |
 | `bsb` — Berean Standard Bible | https://berean.bible/ | Public domain (dedicated by the Berean Bible Translation Committee on 2023-04-30; see https://berean.bible/licensing.htm) |
-| `kjv` — King James Version (1769 Blayney) | eBible.org | Public domain |
+| `kjv` — King James Version (1769 text) | Supplied through Theographic Bible Metadata, whose data-source list names "King James Version, 1769 Cambridge Edition" (it does not say where its own copy came from) | Public domain in the United States. In the United Kingdom the Crown holds rights in the Authorized Version, administered by Cambridge University Press under letters patent; use of this pack in the UK is subject to legal review. |
 | `darby` — J. N. Darby translation (1890) | eBible.org | Public domain |
 | `douay-rheims` — Douay-Rheims Bible, Challoner revision (1752) | eBible.org | Public domain |
 | `vulgata-clementina` — Vulgata Clementina (1592) | eBible.org | Public domain |

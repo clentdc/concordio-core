@@ -56,7 +56,8 @@ override. Each pack's `manifest.json` names its license; the `web/data/packs/ind
 catalog summarises them. In particular:
 
 - **Berean Standard Bible**: public domain, dedicated by its translation committee on 2023-04-30 (https://berean.bible/licensing.htm).
-- **King James, Darby, Douay-Rheims, Vulgata Clementina**: public domain.
+- **Darby, Douay-Rheims, Vulgata Clementina**: public domain.
+- **King James Version**: public domain in the United States; in the United Kingdom the Crown holds rights (see `NOTICE.md`).
 - **Theographic Bible Metadata**: CC-BY-SA 4.0.
 
 CC-BY-SA is a copyleft (share-alike) licence. If you modify a data pack and

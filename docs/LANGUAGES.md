@@ -28,7 +28,7 @@ The kernel ships five:
 | Pack id | Name | Language | Licence |
 | --- | --- | --- | --- |
 | `bsb` | Berean Standard Bible | English | Public domain |
-| `kjv` | King James Version (1769) | English | Public domain |
+| `kjv` | King James Version (1769) | English | Public domain (US); UK Crown rights, see NOTICE.md |
 | `darby` | Darby (1890) | English | Public domain |
 | `douay-rheims` | Douay-Rheims Challoner (1752) | English | Public domain |
 | `vulgata-clementina` | Vulgata Clementina (1592) | Latin | Public domain |
