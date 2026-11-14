@@ -21,6 +21,14 @@ pack retains its own licence as named in its `manifest.json`.
 | `chrome-en` — English interface strings | Written for this project | CC-BY-SA 4.0 |
 | `chrome-es` — Spanish interface strings | Written for this project | CC-BY-SA 4.0 |
 
+## Concordio-authored data
+
+| File | What it is | Licence |
+| --- | --- | --- |
+| `pipeline/slug-lock.json` | Stable, unique URL slugs for every Theographic person, place and event (the slug lock) | CC-BY-SA 4.0 |
+
+The lock is a layer over Theographic Bible Metadata (CC-BY-SA 4.0); it carries the same share-alike licence.
+
 ## Metadata
 
 - **Theographic Bible Metadata** — Robert Rouse.

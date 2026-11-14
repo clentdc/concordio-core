@@ -60,6 +60,7 @@ catalog summarises them. In particular:
 - **King James Version**: public domain in the United States; in the United Kingdom the Crown holds rights (see `NOTICE.md`).
 - **Theographic Bible Metadata**: CC-BY-SA 4.0.
 - **Interface strings (`chrome-en`, `chrome-es`)**: CC-BY-SA 4.0. The code is Apache-2.0; these text packs are share-alike.
+- **Slug lock (`pipeline/slug-lock.json`)**: CC-BY-SA 4.0. Concordio's curated, versioned mapping of every Theographic person, place and event to a stable, unique URL slug.
 
 CC-BY-SA is a copyleft (share-alike) licence. If you modify a data pack and
 redistribute it, your modified pack stays under the same licence. The Apache-2.0
