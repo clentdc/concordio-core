@@ -1,4 +1,5 @@
 {
+  "alsoCredit": "https://github.com/robertrouse/theographic-bible-metadata/blob/master/docs/data-source-bibliography.md",
   "counts": {
     "books": 66,
     "chapters": 1189,
@@ -19,7 +20,7 @@
   "id": "theographic",
   "kind": "entities",
   "license": {
-    "attribution": "Theographic Bible Metadata by Robert Rouse, licensed under Creative Commons Attribution-ShareAlike 4.0 International. Easton's Bible Dictionary (M. G. Easton, 1897) and the KJV verse index text are public domain. Chronology within Theographic follows Dr. Floyd Nolen Jones.",
+    "attribution": "Theographic Bible Metadata by Robert Rouse, licensed under Creative Commons Attribution-ShareAlike 4.0 International. Easton's Bible Dictionary (M. G. Easton, 1897) and the KJV verse index text are public domain. Chronology within Theographic follows Dr. Floyd Nolen Jones. Place coordinates come from OpenBible.info Bible Geocoding (CC BY 4.0, https://www.openbible.info/geo/). Theographic credits further original sources, several with their own licences; please also credit them.",
     "name": "Creative Commons Attribution-ShareAlike 4.0 International",
     "shareAlike": true,
     "spdx": "CC-BY-SA-4.0",
@@ -28,12 +29,12 @@
   "name": "Theographic Bible Metadata",
   "requires": [],
   "schemaVersion": 1,
-  "sizeBytes": 2085789,
+  "sizeBytes": 2960851,
   "source": {
-    "modifications": "Books, chapters, people, places, events compacted; verse ids rekeyed to OSIS; entity ids slugified; family/place links rewritten to the new ids; Easton's excerpts shortened to ~320 chars.",
+    "modifications": "Books, chapters, people, places, events compacted; verse ids rekeyed to OSIS; entity ids slugified; family/place links rewritten to the new ids; Easton's excerpts carried in full, whitespace-normalised; unique URL slugs and namesake qualifiers added (pipeline/slugs.py).",
     "revision": "744355c",
     "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
   },
   "sourceRef": "744355c",
-  "version": "744355c"
+  "version": "744355c-full-s1"
 }

@@ -8,26 +8,37 @@
   "language": "la",
   "languageName": "Latin",
   "textDir": "ltr",
-  "year": 1592,
-  "version": "2026.11",
-  "verseCount": 31434,
-  "sizeBytes": 4005511,
+  "year": 1598,
+  "version": "2026.11-dc",
+  "verseCount": 35809,
+  "sizeBytes": 4540574,
   "files": {
     "verses": "verses.json"
   },
+  "canon": "catholic-73",
+  "deuterocanon": [
+    "1Macc",
+    "2Macc",
+    "Bar",
+    "Jdt",
+    "Sir",
+    "Tob",
+    "Wis"
+  ],
   "requires": [],
   "license": {
     "name": "Public Domain",
-    "spdx": "CC-PDDC",
-    "url": "https://en.wikipedia.org/wiki/Public_domain",
-    "attribution": "Biblia Sacra Vulgata Clementina (1592). Public domain. Text from eBible.org."
+    "spdx": "LicenseRef-Public-Domain",
+    "url": "https://ebible.org/latVUC/copyright.htm",
+    "attribution": "Biblia Sacra Vulgata Clementina (1598 edition, as described by eBible.org). Public domain. Text from eBible.org."
   },
   "source": {
     "upstream": "https://ebible.org/Scriptures/latVUC_vpl.zip",
     "revision": "latVUC_vpl.txt",
     "fetchHash": "bf13a76cc8131fd469a48158c79d9b2adcaad15766ec53852322fb71ca25301b",
-    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books dropped to match the Protestant shelf.",
-    "droppedBooks": [
+    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books mapped to OSIS and included.",
+    "droppedBooks": [],
+    "apocryphaBooks": [
       "1MA",
       "2MA",
       "BAR",
@@ -37,5 +48,5 @@
       "WIS"
     ]
   },
-  "note": "Pope Clement VIII's edition, the Catholic Church's standard Latin Bible from 1592 to the Nova Vulgata of 1979. Shipped with the 66 Protestant books only; the 7 deuterocanonical books are dropped as above."
+  "note": "Clementine Vulgate, 1598 edition as published by eBible.org (its description: \"Clementine Vulgate of 1598 with Glossa Ordinaria, Migne edition 1880\"; the Verse-Per-Line file carries the Bible text only). Ships with the Catholic canon including the deuterocanonical books."
 }

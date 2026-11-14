@@ -7,18 +7,18 @@
   "kind": "translation",
   "lang": "en",
   "license": {
-    "attribution": "King James Version (1611), public domain in the United States. In the United Kingdom rights are vested in the Crown with Cambridge University Press as the Crown's patentee; install this pack only where permitted. See NOTICE.md.",
+    "attribution": "King James Version, the 1769 Cambridge standard text (supplied through Theographic Bible Metadata). Public domain in the United States. In the United Kingdom the Crown holds rights in the Authorized Version, administered by Cambridge University Press under letters patent. No regional restriction is currently applied to this pack; UK use is subject to legal review. See NOTICE.md in the repository.",
     "name": "Public Domain (United States)",
     "spdx": "LicenseRef-KJV-US-PD",
-    "url": "https://docs.openstax.org/legal/public-domain-overview"
+    "url": "https://ebible.org/kjv/copr.htm"
   },
-  "name": "King James Version",
+  "name": "King James Version (1769 text)",
   "requires": [],
   "schemaVersion": 1,
   "sizeBytes": 4627857,
   "source": {
     "modifications": "Markdown-style entity links (`[Cain]([/person/cain)`) stripped to surface text. Verses rekeyed to OSIS id. Underscores and italics markers kept.",
-    "revision": "theographic verses.json (KJV field)",
+    "revision": "theographic verses.json (verseText/richText fields); Theographic's data-source bibliography names the text 'King James Version, 1769 Cambridge Edition'; Theographic does not state its own upstream copy",
     "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
   },
   "sourceRef": "744355c",

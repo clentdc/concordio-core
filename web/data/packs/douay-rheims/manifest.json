@@ -9,25 +9,36 @@
   "languageName": "English",
   "textDir": "ltr",
   "year": 1899,
-  "version": "2026.11",
-  "verseCount": 31438,
-  "sizeBytes": 4538154,
+  "version": "2026.11-dc",
+  "verseCount": 35811,
+  "sizeBytes": 5144880,
   "files": {
     "verses": "verses.json"
   },
+  "canon": "catholic-73",
+  "deuterocanon": [
+    "1Macc",
+    "2Macc",
+    "Bar",
+    "Jdt",
+    "Sir",
+    "Tob",
+    "Wis"
+  ],
   "requires": [],
   "license": {
     "name": "Public Domain",
-    "spdx": "CC-PDDC",
-    "url": "https://en.wikipedia.org/wiki/Public_domain",
+    "spdx": "LicenseRef-Public-Domain",
+    "url": "https://ebible.org/engDRA/copyright.htm",
     "attribution": "Douay-Rheims-Challoner Bible, English translation from the Latin Vulgate. Public domain. Text from eBible.org."
   },
   "source": {
     "upstream": "https://ebible.org/Scriptures/engDRA_vpl.zip",
     "revision": "engDRA_vpl.txt",
     "fetchHash": "7e267290077a9ac9432ac4bd95e53096c77bf9aedc8ba4020503402863f2a7f0",
-    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books dropped to match the Protestant shelf.",
-    "droppedBooks": [
+    "modifications": "VPL parsed; book codes mapped to OSIS; deuterocanonical books mapped to OSIS and included.",
+    "droppedBooks": [],
+    "apocryphaBooks": [
       "1MA",
       "2MA",
       "BAR",
@@ -37,5 +48,5 @@
       "WIS"
     ]
   },
-  "note": "Challoner revision (1750 / 1899 printing). Shipped here with the 66 Protestant books only; the 7 deuterocanonical books of the Douay-Rheims (Tobit, Judith, Wisdom, Sirach, Baruch, 1-2 Maccabees) are available in the upstream file but dropped by this pack because the app's shelf is the Protestant canon. See the manifest for the full list."
+  "note": "Challoner revision (1750 / 1899 printing). Includes the 7 deuterocanonical books (Tobit, Judith, Wisdom, Sirach, Baruch, 1-2 Maccabees) that form the Catholic canon. The Greek additions to Esther and Daniel are rendered where present in the upstream VPL."
 }
