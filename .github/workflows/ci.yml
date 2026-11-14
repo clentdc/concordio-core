@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Data integrity (packs, slugs, manifests, service worker)
+        run: python3 tests/test_data.py
       - name: No proprietary or secret material (tests/reserved-material.json)
         run: python3 tests/test_reserved_material.py
       - name: Licence statements agree with pack manifests
