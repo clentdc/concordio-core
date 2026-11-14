@@ -93,7 +93,7 @@
       "optional": false,
       "default": true,
       "sizeBytes": 2500,
-      "license": "Apache-2.0"
+      "license": "CC-BY-SA-4.0"
     },
     {
       "id": "chrome-es",
@@ -106,7 +106,7 @@
       "optional": true,
       "default": false,
       "sizeBytes": 2800,
-      "license": "Apache-2.0"
+      "license": "CC-BY-SA-4.0"
     }
   ]
 }

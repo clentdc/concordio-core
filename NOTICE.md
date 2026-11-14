@@ -14,6 +14,13 @@ pack retains its own licence as named in its `manifest.json`.
 | `douay-rheims` — Douay-Rheims Bible, Challoner revision (1752) | eBible.org | Public domain |
 | `vulgata-clementina` — Vulgata Clementina (1592) | eBible.org | Public domain |
 
+## Interface strings
+
+| Pack | Source | Licence |
+| --- | --- | --- |
+| `chrome-en` — English interface strings | Written for this project | CC-BY-SA 4.0 |
+| `chrome-es` — Spanish interface strings | Written for this project | CC-BY-SA 4.0 |
+
 ## Metadata
 
 - **Theographic Bible Metadata** — Robert Rouse.
