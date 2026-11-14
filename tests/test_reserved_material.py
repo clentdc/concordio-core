@@ -12,6 +12,7 @@ import fnmatch
 import json
 import pathlib
 import re
+import subprocess
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -21,8 +22,21 @@ THIS_FILES = {"tests/reserved-material.json", "tests/test_reserved_material.py"}
 
 
 def files():
-    for path in sorted(ROOT.rglob("*")):
-        rel = path.relative_to(ROOT)
+    """Every file git knows about (tracked, or untracked and not ignored).
+
+    Ignored files (.cache/, build output, virtualenvs) are never published, so they are not
+    scanned: a weekly refresh fetches sources into .cache/ without tripping this guard.
+    Outside a git checkout, fall back to walking the tree.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+            check=True, capture_output=True).stdout.decode("utf-8")
+        rels = sorted(pathlib.Path(p) for p in out.split("\0") if p)
+    except (OSError, subprocess.CalledProcessError):
+        rels = sorted(p.relative_to(ROOT) for p in ROOT.rglob("*"))
+    for rel in rels:
+        path = ROOT / rel
         if any(part in SKIP_DIRS for part in rel.parts) or not path.is_file():
             continue
         yield path, rel

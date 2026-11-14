@@ -10,3 +10,6 @@ build/
 .env.*
 !/.env.example
 *.log
+
+# Sources fetched by the pipeline (make fetch) are never published
+.cache/
