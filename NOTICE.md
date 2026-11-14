@@ -8,7 +8,7 @@ pack retains its own licence as named in its `manifest.json`.
 
 | Pack | Source | Licence |
 | --- | --- | --- |
-| `bsb` — Berean Standard Bible | https://berean.bible/ | CC-BY-SA 4.0 (verify at berean.bible/licensing.htm) |
+| `bsb` — Berean Standard Bible | https://berean.bible/ | Public domain (dedicated by the Berean Bible Translation Committee on 2023-04-30; see https://berean.bible/licensing.htm) |
 | `kjv` — King James Version (1769 Blayney) | eBible.org | Public domain |
 | `darby` — J. N. Darby translation (1890) | eBible.org | Public domain |
 | `douay-rheims` — Douay-Rheims Bible, Challoner revision (1752) | eBible.org | Public domain |

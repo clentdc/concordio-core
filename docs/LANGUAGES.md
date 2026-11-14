@@ -27,7 +27,7 @@ The kernel ships five:
 
 | Pack id | Name | Language | Licence |
 | --- | --- | --- | --- |
-| `bsb` | Berean Standard Bible | English | CC-BY-SA 4.0 |
+| `bsb` | Berean Standard Bible | English | Public domain |
 | `kjv` | King James Version (1769) | English | Public domain |
 | `darby` | Darby (1890) | English | Public domain |
 | `douay-rheims` | Douay-Rheims Challoner (1752) | English | Public domain |

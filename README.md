@@ -55,7 +55,7 @@ The data packs carry their upstream licenses, which the code license does not
 override. Each pack's `manifest.json` names its license; the `web/data/packs/index.json`
 catalog summarises them. In particular:
 
-- **Berean Standard Bible**: CC-BY-SA 4.0 (verify at berean.bible).
+- **Berean Standard Bible**: public domain, dedicated by its translation committee on 2023-04-30 (https://berean.bible/licensing.htm).
 - **King James, Darby, Douay-Rheims, Vulgata Clementina**: public domain.
 - **Theographic Bible Metadata**: CC-BY-SA 4.0.
 
