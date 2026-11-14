@@ -1,0 +1,21 @@
+{
+  "_comment": "What must never appear in concordio-core (public, Apache-2.0). Edit deliberately: every entry is a promise to the maintainer that core stays free of proprietary layers. See docs/restructure in the private bible-explorer repo, decision D57.",
+  "forbidden_names": [
+    "three", "three.js", "three.min.js", "three-r*", "three.module.js",
+    "event-imagery",
+    "deploy", "deploy.sh", "rollback.sh", "bootstrap-vps.sh", ".deploy*", "*.env", ".env.*",
+    "research_notes", ".cache", ".claude", "worktrees",
+    "*.pem", "*.key", "id_rsa*", "id_ed25519*"
+  ],
+  "allowed_presets": ["default"],
+  "forbidden_text": [
+    "THREE\\.[A-Z][A-Za-z]+",
+    "three(\\.min)?\\.js",
+    "-----BEGIN [A-Z ]*PRIVATE KEY-----",
+    "DEPLOY_(HOST|USER|KEY|PASS|PASSWORD|TOKEN)",
+    "\\.deploy\\.env",
+    "clentdc/bible-explorer"
+  ],
+  "text_suffixes": [".md", ".html", ".css", ".js", ".mjs", ".py", ".json", ".yml", ".yaml", ".webmanifest", ".txt", ".sh"],
+  "max_file_bytes": 52428800
+}

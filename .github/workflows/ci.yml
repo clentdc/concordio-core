@@ -1,0 +1,19 @@
+name: CI
+
+# Guards that keep concordio-core open, clean and consistent. Standard library only.
+on:
+  push:
+  pull_request:
+
+jobs:
+  guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: No proprietary or secret material (tests/reserved-material.json)
+        run: python3 tests/test_reserved_material.py
+      - name: Licence statements agree with pack manifests
+        run: python3 tests/test_licences.py
