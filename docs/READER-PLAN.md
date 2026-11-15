@@ -33,7 +33,7 @@ but cannot be reached, because the book list comes from `theographic/books.json`
 | Step | Item | Needs data not in git? | Status |
 | --- | --- | --- | --- |
 | 1 | (c) Use `versify.json` | No | Done |
-| 2 | (b) Canon selector | No | Done in this branch |
+| 2 | (b) Canon selector | No | Done |
 | 3 | (a) Transliteration | Yes: the interlinear packs | Design only, below |
 | 4 | (d) Presets beyond `default` | No data, but the owner decides content | Design only, below |
 
@@ -59,12 +59,17 @@ with a label such as "Psalm 23 (numbered 22 in this translation)".
 
 ### (b) Canon selector
 
-A "Books" select (count-based labels: "66 books", "73 books") built from
+A "Canon" select (count-based labels: "66 books", "73 books"; `web/js/canon.js`) built from
 `canon-extensions.json`: the extension books are inserted by resolving each `insertAfter`
 chain. Chapter counts come from the same file. The option is disabled unless the active
 translation has the books (probe `<osis>.1.1`), and the selection falls back to 66 when the
-translation changes. It is reader state; the preset's `canon.deuterocanonBooks` and
-`canon.apocryphaBooks` only seed the initial choice. No preset is created. Entity data
+translation changes. It is reader state, kept in the URL hash as `canon=66|ext`; the
+preset's `canon.deuterocanonBooks` and `canon.apocryphaBooks` only seed the initial choice
+(any listed book selects the extended canon, all available extension books are shown; the
+lists are not used to pick individual books, which is a question for the owner). No preset
+is created. Extension books are named in English from `canon-extensions.json` only; the
+chrome packs have no keys for them, nor for `label.canon`, `canon.count` or the `psalm.*`
+notes (the reader falls back to English). Entity data
 (people, places, events) does not cover these books; see DATA.md "Known gaps".
 
 ### (a) Transliteration (design, not built)

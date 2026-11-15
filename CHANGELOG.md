@@ -28,6 +28,11 @@ are minor or patch.
   Psalms 114/115, 116 and 147 show the matching whole chapters (`web/js/versify.js`,
   `tests/test_versify.js`). Bump `CACHE_VERSION` in `web/sw.js` when this merges.
 
+- **Reader: canon selector.** A "Canon" select offers "66 books" or "73 books" when the
+  active translation contains the seven books in `canon-extensions.json` (Douay-Rheims,
+  Vulgata Clementina), placed by their `insertAfter` entries; it is disabled otherwise
+  (`web/js/canon.js`, `tests/test_canon.js`). Share links carry `canon=`.
+
 ### Fixed
 
 - The BSB is public domain (dedicated 2023-04-30); it had been recorded as CC BY-SA.

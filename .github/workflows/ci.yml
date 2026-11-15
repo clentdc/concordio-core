@@ -28,6 +28,9 @@ jobs:
         run: |
           node --check web/js/app.js
           node --check web/js/versify.js
+          node --check web/js/canon.js
           node --check web/sw.js
       - name: Psalm numbering (versify.json in the reader)
         run: node tests/test_versify.js
+      - name: Canon selector (canon-extensions.json in the reader)
+        run: node tests/test_canon.js

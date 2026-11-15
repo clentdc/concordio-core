@@ -107,7 +107,8 @@ pack instead: `python3 -I pipeline/build.py .cache --only theographic`.
   `aliases`.
 - **Events have no inline target.** They link to whole verses, not phrases.
 - **Entity coverage stops at the 66-book canon.** The deuterocanonical books in the
-  Douay-Rheims and Vulgata packs have text but no people, places or events. Theographic
+  Douay-Rheims and Vulgata packs have text (the reader's Canon select now reaches them)
+  but no people, places or events. Theographic
   has no verse references for them.
 - **`versify.json` maps Psalm chapters only.** The reader uses it: asking for Psalm 23 in
   the Douay-Rheims shows that translation's Psalm 22, labelled. The map has no verse

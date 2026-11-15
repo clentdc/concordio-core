@@ -13,9 +13,14 @@
 const PACKS_BASE = 'data/packs';
 const $ = (id) => document.getElementById(id);
 const V = window.Versify;   // web/js/versify.js, loaded before this script
+const Canon = window.Canon; // web/js/canon.js, loaded before this script
 
 const state = {
-  books: [],          // [{osis,n,cn,t,d,...}]
+  baseBooks: [],      // the 66, from the entities pack: [{osis,n,cn,t,d,...}]
+  extensions: null,   // canon-extensions.json, or null if unavailable
+  canon: '66',        // '66' or 'ext' (the 66 plus the extension books the translation has)
+  canonTouched: false, // true once the URL or the user has chosen; until then the preset seeds it
+  books: [],          // the book list in use (baseBooks, or with extensions spliced in)
   verses: {},         // OSIS -> text, for the active translation
   versify: null,      // versify.json (Psalm numbering map), or null if unavailable
   psalmNumbering: 'hebrew', // numbering the active translation uses: 'hebrew' | 'septuagint'
@@ -43,7 +48,13 @@ async function loadIndex() {
 
 async function loadBooks() {
   const books = await fetchJSON(`${PACKS_BASE}/theographic/books.json`);
+  state.baseBooks = books;
   state.books = books;
+}
+
+async function loadExtensions() {
+  try { state.extensions = await fetchJSON(`${PACKS_BASE}/canon-extensions.json`); }
+  catch (e) { state.extensions = null; }
 }
 
 async function loadTranslation(id) {
@@ -101,6 +112,30 @@ async function loadPreset(id) {
     state.preset = null;
     state.denom = 'default';
   }
+}
+
+/* Rebuild the book list for the chosen canon and the active translation. An extension
+   book is listed only if the translation's verses contain it; if none do, the choice falls
+   back to the 66. */
+function applyCanon() {
+  const extra = Canon.availableExtensions(state.extensions, state.verses);
+  if (!extra.length) state.canon = '66';
+  state.books = state.canon === 'ext' ? Canon.buildBooks(state.baseBooks, extra) : state.baseBooks;
+  if (!state.books.some(b => b.osis === state.book)) { state.book = state.baseBooks[0].osis; state.chapter = 1; }
+  const sel = $('canon');
+  sel.innerHTML = '';
+  const options = [['66', state.baseBooks.length]];
+  if (extra.length) options.push(['ext', state.baseBooks.length + extra.length]);
+  for (const [value, n] of options) {
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = t('canon.count', '{n} books').replace('{n}', String(n));
+    sel.appendChild(opt);
+  }
+  sel.value = state.canon;
+  sel.disabled = options.length < 2;
+  populateBookSelect();
+  populateChapterSelect();
 }
 
 function populateBookSelect() {
@@ -221,7 +256,7 @@ function render() {
     }
   }
   try {
-    const q = new URLSearchParams({ b: state.book, c: String(state.chapter), tr: state.translation, lang: state.lang, p: state.denom });
+    const q = new URLSearchParams({ b: state.book, c: String(state.chapter), tr: state.translation, lang: state.lang, p: state.denom, canon: state.canon });
     history.replaceState(null, '', `#${q.toString()}`);
   } catch (e) {}
   updatePaging();
@@ -333,6 +368,7 @@ function restoreFromHash() {
     if (q.get('tr')) state.translation = q.get('tr');
     if (q.get('lang')) state.lang = q.get('lang');
     if (q.get('p')) state.denom = q.get('p');
+    if (q.get('canon') === '66' || q.get('canon') === 'ext') { state.canon = q.get('canon'); state.canonTouched = true; }
   } catch (e) {}
   try {
     state.lang = state.lang || localStorage.getItem('cf.lang') || 'en';
@@ -348,13 +384,18 @@ async function init() {
   await loadBooks();
   await loadStrings(state.lang);
   await loadVersify();
+  await loadExtensions();
   await loadDenoms();
   await loadPreset(state.denom);
   if (state.preset && !state.verses) state.translation = state.preset.defaultTranslation || state.translation;
   await loadTranslation(state.translation);
+  // Starting canon: an explicit URL choice, else a link to an extension book, else the preset's.
+  if (!state.canonTouched) {
+    const named = ((state.extensions && state.extensions.books) || []).some(b => b.osis === state.book);
+    state.canon = named || Canon.presetWantsExtensions(state.preset) ? 'ext' : '66';
+  }
   applyI18N();
-  populateBookSelect();
-  populateChapterSelect();
+  applyCanon();
   populateTranslationSelect(index);
   populateLangSelect(index);
   populateDenomSelect();
@@ -370,13 +411,21 @@ async function init() {
     state.chapter = parseInt(e.target.value, 10) || 1;
     render();
   });
+  $('canon').addEventListener('change', e => {
+    state.canon = e.target.value;
+    state.canonTouched = true;
+    applyCanon();
+    render();
+  });
   $('translation').addEventListener('change', async e => {
     await loadTranslation(e.target.value);
+    applyCanon();
     render();
   });
   $('lang').addEventListener('change', async e => {
     await loadStrings(e.target.value);
     applyI18N();
+    applyCanon();
   });
   $('denom').addEventListener('change', async e => {
     await loadPreset(e.target.value);
@@ -385,6 +434,8 @@ async function init() {
       $('translation').value = state.translation;
       await loadTranslation(state.translation);
     }
+    state.canon = Canon.presetWantsExtensions(state.preset) ? 'ext' : '66';
+    applyCanon();
     render();
   });
   $('prev').addEventListener('click', () => stepChapter(-1));
