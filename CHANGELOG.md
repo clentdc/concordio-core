@@ -7,6 +7,12 @@ are minor or patch.
 
 ## Unreleased (toward 0.1.0)
 
+### Changed
+
+- **Credit line.** The `chrome-en` and `chrome-es` manifests now credit "Concordio project, 2026"
+  (was "Bible Explorer project"), matching `versify.json` and `canon-extensions.json`. Both
+  packs move to 1.0.1 so cached clients refresh; the service-worker cache is bumped to v2.
+
 ### Added
 
 - **Pipeline.** The build for every pack (`pipeline/`): adapters for Theographic, the
