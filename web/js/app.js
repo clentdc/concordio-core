@@ -12,10 +12,13 @@
 
 const PACKS_BASE = 'data/packs';
 const $ = (id) => document.getElementById(id);
+const V = window.Versify;   // web/js/versify.js, loaded before this script
 
 const state = {
   books: [],          // [{osis,n,cn,t,d,...}]
   verses: {},         // OSIS -> text, for the active translation
+  versify: null,      // versify.json (Psalm numbering map), or null if unavailable
+  psalmNumbering: 'hebrew', // numbering the active translation uses: 'hebrew' | 'septuagint'
   translation: 'bsb',
   translations: [],   // from index.json where kind === 'translation'
   langs: [],          // chrome packs
@@ -49,6 +52,12 @@ async function loadTranslation(id) {
   const verses = await fetchJSON(`${PACKS_BASE}/${id}/${versesFile}?v=${manifest.version}`);
   state.verses = verses;
   state.translation = id;
+  state.psalmNumbering = V.numberingFor(id, manifest);
+}
+
+async function loadVersify() {
+  try { state.versify = await fetchJSON(`${PACKS_BASE}/versify.json`); }
+  catch (e) { state.versify = null; }
 }
 
 async function loadStrings(lang) {
@@ -166,29 +175,50 @@ function applyI18N() {
   }
 }
 
+/* The reader's chapter numbers are Hebrew. For a Greek/Latin-numbered translation the
+   Psalm shown is the translation's own chapter(s); say so, in neutral words. */
+function psalmLabel(name, hebrewNumber, res) {
+  const notes = [];
+  const own = res.chapters.length > 1
+    ? `${res.chapters[0]}\u2013${res.chapters[res.chapters.length - 1]}` : String(res.chapters[0]);
+  const renumbered = own !== String(hebrewNumber);
+  if (renumbered) notes.push(t('psalm.numbered', 'numbered {n} in this translation').replace('{n}', own));
+  if (res.shared.length) {
+    const together = t('psalm.shared', 'together with Psalm {n}').replace('{n}', res.shared.join(', '));
+    notes.push(renumbered ? together : `${together} ${t('psalm.inTranslation', 'in this translation')}`);
+  }
+  return notes.length ? `${name} ${hebrewNumber} \u00b7 ${notes.join(', ')}` : `${name} ${hebrewNumber}`;
+}
+
 function render() {
   const book = state.books.find(b => b.osis === state.book);
   const name = book ? book.n : state.book;
-  $('where').textContent = `${name} ${state.chapter}`;
+  const res = V.resolveChapter(state.versify, state.book, state.chapter, state.psalmNumbering);
+  const mapped = res.chapters.length !== 1 || res.chapters[0] !== state.chapter || res.shared.length > 0;
+  $('where').textContent = mapped ? psalmLabel(name, state.chapter, res) : `${name} ${state.chapter}`;
   const ol = $('verses');
   ol.innerHTML = '';
-  let v = 1;
-  while (true) {
-    const key = `${state.book}.${state.chapter}.${v}`;
-    const text = state.verses[key];
-    if (text === undefined) break;
-    const li = document.createElement('li');
-    const n = document.createElement('span');
-    n.className = 'vnum';
-    n.textContent = String(v);
-    const tx = document.createElement('span');
-    tx.className = 'vtext';
-    tx.textContent = text;
-    li.appendChild(n);
-    li.appendChild(tx);
-    ol.appendChild(li);
-    v++;
-    if (v > 200) break;
+  for (const ch of res.chapters) {
+    if (res.chapters.length > 1) {
+      const h = document.createElement('li');
+      h.className = 'chap';
+      h.textContent = `${name} ${ch}`;
+      ol.appendChild(h);
+    }
+    for (let v = 1; v <= 200; v++) {
+      const text = state.verses[`${state.book}.${ch}.${v}`];
+      if (text === undefined) break;
+      const li = document.createElement('li');
+      const n = document.createElement('span');
+      n.className = 'vnum';
+      n.textContent = String(v);
+      const tx = document.createElement('span');
+      tx.className = 'vtext';
+      tx.textContent = text;
+      li.appendChild(n);
+      li.appendChild(tx);
+      ol.appendChild(li);
+    }
   }
   try {
     const q = new URLSearchParams({ b: state.book, c: String(state.chapter), tr: state.translation, lang: state.lang, p: state.denom });
@@ -317,6 +347,7 @@ async function init() {
   const index = await loadIndex();
   await loadBooks();
   await loadStrings(state.lang);
+  await loadVersify();
   await loadDenoms();
   await loadPreset(state.denom);
   if (state.preset && !state.verses) state.translation = state.preset.defaultTranslation || state.translation;

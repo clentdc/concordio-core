@@ -32,7 +32,7 @@ but cannot be reached, because the book list comes from `theographic/books.json`
 
 | Step | Item | Needs data not in git? | Status |
 | --- | --- | --- | --- |
-| 1 | (c) Use `versify.json` | No | Done in this branch |
+| 1 | (c) Use `versify.json` | No | Done |
 | 2 | (b) Canon selector | No | Done in this branch |
 | 3 | (a) Transliteration | Yes: the interlinear packs | Design only, below |
 | 4 | (d) Presets beyond `default` | No data, but the owner decides content | Design only, below |

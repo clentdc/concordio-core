@@ -35,6 +35,8 @@ html.fs-xl{--fs-sm:19px;--fs-base:24px;--fs-md:30px;--fs-lg:38px}
 .verses li .vnum{flex:0 0 2.5em;color:var(--muted);font-family:var(--f-ui);font-size:var(--fs-sm);font-variant-numeric:tabular-nums;text-align:right;padding-top:.15em}
 .verses li .vtext{flex:1 1 auto}
 
+.verses li.chap{display:block;margin:1.2em 0 .4em;font-family:var(--f-ui);font-size:var(--fs-sm);color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+
 .paging{display:flex;justify-content:space-between;gap:12px;margin-top:28px}
 .paging button{background:#0e1116;border:1px solid var(--line);color:var(--fg);padding:8px 14px;border-radius:4px;font:inherit;cursor:pointer}
 .paging button:disabled{opacity:.4;cursor:not-allowed}
