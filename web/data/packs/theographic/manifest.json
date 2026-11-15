@@ -3,12 +3,12 @@
   "counts": {
     "books": 66,
     "chapters": 1189,
-    "events": 450,
+    "events": 490,
     "people": 3067,
-    "places": 1298,
+    "places": 1296,
     "verses": 31102
   },
-  "fetchHash": "a2444b2dce9dd39442faf80f3d1b6728e87e8775f21a05239d06dd0f20c31583",
+  "fetchHash": "baa46caf5ea6494fe8df561b393c50230f9da722187a5143bffdbbcf39a6e00e",
   "files": {
     "books": "books.json",
     "chapters": "chapters.json",
@@ -29,12 +29,12 @@
   "name": "Theographic Bible Metadata",
   "requires": [],
   "schemaVersion": 1,
-  "sizeBytes": 2960851,
+  "sizeBytes": 2976845,
   "source": {
     "modifications": "Books, chapters, people, places, events compacted; verse ids rekeyed to OSIS; entity ids slugified; family/place links rewritten to the new ids; Easton's excerpts carried in full, whitespace-normalised; unique URL slugs and namesake qualifiers added (pipeline/slugs.py).",
-    "revision": "744355c",
+    "revision": "3d8aa2e",
     "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
   },
-  "sourceRef": "744355c",
-  "version": "744355c-full-s1"
+  "sourceRef": "3d8aa2e",
+  "version": "3d8aa2e-full-s1"
 }

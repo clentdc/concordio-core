@@ -1,5 +1,5 @@
 {
-  "fetchHash": "7c51f6a7b93500090a535e80e17417e61086c0c1f9352b85bccd4cb954349dba",
+  "fetchHash": "55a3ab2040885d9a67571ede44ca97b8af1344beca004e48fb88762698e54c8f",
   "files": {
     "verses": "verses.json"
   },
@@ -21,8 +21,8 @@
     "revision": "theographic verses.json (verseText/richText fields); Theographic's data-source bibliography names the text 'King James Version, 1769 Cambridge Edition'; Theographic does not state its own upstream copy",
     "upstream": "https://github.com/robertrouse/theographic-bible-metadata"
   },
-  "sourceRef": "744355c",
+  "sourceRef": "3d8aa2e",
   "textDir": "ltr",
   "verseCount": 31102,
-  "version": "theographic-744355c"
+  "version": "theographic-3d8aa2e"
 }
