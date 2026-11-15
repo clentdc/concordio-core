@@ -34,9 +34,14 @@ The lock is a layer over Theographic Bible Metadata (CC-BY-SA 4.0); it carries t
 - **Theographic Bible Metadata** — Robert Rouse.
   https://github.com/robertrouse/theographic-bible-metadata
   Licence: CC-BY-SA 4.0.
-  Used for: books, chapters, people, places, events, and chronological
-  framing. Jones chronology used in-app; Theographic's own switch to Jones is
-  expected in a 2026-10 release.
+  Used for: books, chapters, people, places, events, chronology, the KJV verse
+  text and Easton's Bible Dictionary entries. Its chronology follows Floyd Nolen
+  Jones. Theographic credits further original sources, several with their own
+  licences; they are catalogued in `docs/THEOGRAPHIC-AUDIT.md` and should be credited
+  too.
+- **OpenBible.info Bible Geocoding** — place coordinates carried inside
+  Theographic's places. Licence: CC-BY 4.0. https://www.openbible.info/geo/
+- **Easton's Bible Dictionary** — M. G. Easton, 1897, public domain, via Theographic.
 
 ## Software
 

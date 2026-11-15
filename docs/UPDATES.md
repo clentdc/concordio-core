@@ -1,0 +1,102 @@
+# Updates
+
+How data changes reach Concordio Core and the projects built on it. Short version: a
+weekly job rebuilds the upstream-derived packs and opens a pull request; a human reads
+the diff and merges; consumers pick up changes by moving to a new tagged release.
+
+- [The weekly refresh](#the-weekly-refresh)
+- [Reviewing a refresh pull request](#reviewing-a-refresh-pull-request)
+- [Refreshing by hand](#refreshing-by-hand)
+- [Pack versions and provenance](#pack-versions-and-provenance)
+- [For consumers: pin a release](#for-consumers-pin-a-release)
+- [Rollback](#rollback)
+- [Stability guarantees](#stability-guarantees)
+
+## The weekly refresh
+
+`.github/workflows/check-upstream.yml` runs every Monday at 07:17 UTC (and on demand
+with `gh workflow run check-upstream.yml`):
+
+1. `make refresh-data` pulls the latest Theographic and BSB, then rebuilds the
+   `theographic`, `bsb` and `kjv` packs (the KJV text is read from Theographic).
+2. `make check` runs the data, licence and reserved-material checks on the result.
+3. If anything under `web/data/packs/` or `pipeline/slug-lock.json` changed, it opens a
+   pull request titled `data: refresh packs from upstream`, with the manifest diff in
+   the body. If nothing changed, nothing opens.
+
+Nothing publishes without a human merging the PR. The workflow needs the repository
+setting *Allow GitHub Actions to create and approve pull requests* switched on. Actions
+used by the workflow are pinned to commit SHAs.
+
+The refresh deliberately covers only the packs stored in git. The large interlinear
+packs are not part of it.
+
+## Reviewing a refresh pull request
+
+The PR body shows the manifest diff. Check:
+
+- **`sourceRef` and `version` moved** to the upstream revision you expect.
+- **Counts** in the `theographic` manifest (`people`, `places`, `events`) changed by a
+  plausible amount. They can go down as well as up; read upstream's commit log to see why.
+- **The slug lock only grew.** `pipeline/slug-lock.json` should gain lines for new
+  entities and change none that already existed. A changed existing slug breaks
+  published URLs and must not merge.
+- **Licence fields did not move.** A changed upstream licence needs a human decision
+  before anything else.
+
+GitHub does not start separate CI runs on pull requests opened by a workflow's own
+token. The workflow runs the checks itself before opening the PR; to get a CI run on
+the PR as well, close and reopen it.
+
+## Refreshing by hand
+
+```bash
+make refresh-data
+make check
+git diff web/data/packs/*/manifest.json
+```
+
+Commit `web/data/packs/` and `pipeline/slug-lock.json` together.
+
+## Pack versions and provenance
+
+Every manifest pins exactly what it was built from (see
+[PACK-SCHEMA.md](PACK-SCHEMA.md#manifest-manifestjson)): `version`, `source.revision`,
+`sourceRef` and `fetchHash`. Two properties follow:
+
+- **Builds are reproducible.** The same upstream revision gives byte-identical output,
+  because builds read no clock and `fetchHash` covers the whole normalised input.
+- **A rebuild that changes nothing opens no PR.** The pins have not moved.
+
+A pack `version` is an opaque string; consumers compare it for equality. The reference
+reader appends `?v=<version>` to every pack file request, so a new version is a new URL.
+
+## For consumers: pin a release
+
+Applications built on Core should not track `main`. Pin a tagged release and its
+content hash, and move deliberately:
+
+1. Take the new release tag.
+2. Read its [CHANGELOG](../CHANGELOG.md) entry and the pack manifest diff.
+3. Run your own checks.
+4. Ship.
+
+A pack-only update never needs an application code change, provided the pack `schemaVersion`
+is unchanged. A schema change is a breaking release and will say so in the changelog.
+
+## Rollback
+
+Everything is a git revert. Revert the merge commit of a bad refresh, or tag a fix.
+Consumers pinned to an earlier release are unaffected. Old release tags and their
+bytes stay available.
+
+## Stability guarantees
+
+| Guarantee | Mechanism |
+| --- | --- |
+| OSIS verse ids do not change. | Every adapter normalises to OSIS; the book table is `pipeline/osis.py`. |
+| Entity slugs do not change. | `pipeline/slug-lock.json` locks every slug; new entities are slotted around it. |
+| Schema breaks are explicit. | `schemaVersion` changes and a major version bump, with a changelog entry. |
+| Attribution travels with the data. | `license.attribution` is required in every manifest; tests enforce it. |
+| Rebuilds are deterministic. | Same upstream revision, same bytes. |
+| Licence statements agree everywhere. | `tests/test_licences.py` compares README, NOTICE, docs, catalog and manifests. |

@@ -20,7 +20,7 @@ HTML.
 
 ## Scripture translation — translation packs
 
-Translations are OSIS-keyed `verses.json` files. See [PACKS.md](PACKS.md) for
+Translations are OSIS-keyed `verses.json` files. See [PACK-SCHEMA.md](PACK-SCHEMA.md) for
 the full pack format.
 
 The kernel ships five:

@@ -13,9 +13,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '20'
       - name: Data integrity (packs, slugs, manifests, service worker)
         run: python3 tests/test_data.py
       - name: No proprietary or secret material (tests/reserved-material.json)
         run: python3 tests/test_reserved_material.py
       - name: Licence statements agree with pack manifests
         run: python3 tests/test_licences.py
+      - name: Cookbook recipes run against the packs
+        run: python3 tests/test_cookbook.py

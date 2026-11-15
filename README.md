@@ -17,7 +17,9 @@ other builders can start from a working kit instead of a blank page.
 - A denominational preset schema with one neutral `default` preset. Forks supply
   their own.
 - A service worker for offline-first PWA behavior.
-- `pipeline/adapters/translations_ebible.py`, a reusable VPL fetcher.
+- `pipeline/`, the build for every pack, including `translations_ebible.py`, a reusable
+  verse-per-line fetcher, and the slug lock that keeps entity URLs stable.
+- A weekly job that rebuilds the upstream-derived packs and opens a pull request.
 - A font-size cycler and a pinch-to-reflow handler that converts mobile pinch
   gestures into font-size steps instead of a visual viewport zoom.
 
@@ -36,6 +38,19 @@ and are not part of this kernel:
 
 See [TRADEMARKS.md](TRADEMARKS.md) for what you may and may not do with the
 Concordio and Bible Explorer marks.
+
+## Documentation
+
+| Read | For |
+| --- | --- |
+| [docs/QUERY-COOKBOOK.md](docs/QUERY-COOKBOOK.md) | 14 runnable recipes: what you can ask of the data |
+| [docs/DATA.md](docs/DATA.md) | What is in each pack and where it came from |
+| [docs/PACK-SCHEMA.md](docs/PACK-SCHEMA.md) | Every file format |
+| [docs/LICENSES.md](docs/LICENSES.md) | What you may do, and what you owe |
+| [docs/UPDATES.md](docs/UPDATES.md) | The weekly refresh; pinning a release |
+| [docs/LLM.md](docs/LLM.md) | A guide for AI agents (and [llms.txt](llms.txt)) |
+| [docs/THEOGRAPHIC-AUDIT.md](docs/THEOGRAPHIC-AUDIT.md) | The sources and chronology behind the dates |
+| [CHANGELOG.md](CHANGELOG.md) | What changed |
 
 ## Quick start
 

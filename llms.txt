@@ -1,0 +1,20 @@
+# Concordio Core
+
+> A static, offline, open-licensed Bible dataset: five translations keyed by OSIS verse id, plus 3,067 people, 1,298 places and 450 events linked to the verses that name them. No server, no API key; read the JSON files directly.
+
+Start with `web/data/packs/index.json`, then each pack's `manifest.json`. Verses are keyed `Book.chapter.verse` (e.g. `John.3.16`). Never invent an entity-to-verse link the data does not contain; join on `slug` or `id`, never on display name.
+
+## Docs
+
+- [Guide for AI agents](docs/LLM.md): how to answer common questions and the rules to follow
+- [Query cookbook](docs/QUERY-COOKBOOK.md): 14 runnable recipes
+- [Pack schema](docs/PACK-SCHEMA.md): every file format
+- [Data](docs/DATA.md): what is in each pack and where it came from
+- [Licences](docs/LICENSES.md): public domain texts, CC BY-SA 4.0 data, Apache-2.0 code
+- [Updates](docs/UPDATES.md): weekly refresh and pinning a release
+
+## Optional
+
+- [Theographic source audit](docs/THEOGRAPHIC-AUDIT.md): the chronology and sources behind the dates and places
+- [Languages and translations](docs/LANGUAGES.md)
+- [Changelog](CHANGELOG.md)
