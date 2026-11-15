@@ -29,6 +29,16 @@ are minor or patch.
 - **Docs:** data, pack schema, updates, licences, a query cookbook with 14 runnable
   recipes, a guide for AI agents, the Theographic source audit, and `llms.txt`.
 
+- **Reader: Psalm numbering.** The reader now uses `versify.json`. For the Douay-Rheims
+  and Vulgata Clementina, Psalm 23 shows that translation's Psalm 22 with a neutral note;
+  Psalms 114/115, 116 and 147 show the matching whole chapters (`web/js/versify.js`,
+  `tests/test_versify.js`). Bump `CACHE_VERSION` in `web/sw.js` when this merges.
+
+- **Reader: canon selector.** A "Canon" select offers "66 books" or "73 books" when the
+  active translation contains the seven books in `canon-extensions.json` (Douay-Rheims,
+  Vulgata Clementina), placed by their `insertAfter` entries; it is disabled otherwise
+  (`web/js/canon.js`, `tests/test_canon.js`). Share links carry `canon=`.
+
 ### Fixed
 
 - The BSB is public domain (dedicated 2023-04-30); it had been recorded as CC BY-SA.

@@ -107,11 +107,18 @@ pack instead: `python3 -I pipeline/build.py .cache --only theographic`.
   `aliases`.
 - **Events have no inline target.** They link to whole verses, not phrases.
 - **Entity coverage stops at the 66-book canon.** The deuterocanonical books in the
-  Douay-Rheims and Vulgata packs have text but no people, places or events. Theographic
+  Douay-Rheims and Vulgata packs have text (the reader's Canon select now reaches them)
+  but no people, places or events. Theographic
   has no verse references for them.
-- **The reader ignores `versify.json`.** Douay-Rheims Psalm 23 shows the Vulgate
-  numbering (Psalm 22) when you ask for 23. The map is data; wiring it in is on the
-  roadmap.
+- **`versify.json` maps Psalm chapters only.** The reader uses it: asking for Psalm 23 in
+  the Douay-Rheims shows that translation's Psalm 22, labelled. The map has no verse
+  boundaries, so where the numberings merge or split Psalms (9 and 10, 114 and 115, 116,
+  147) the reader shows whole chapters, never part of one. Other books whose versification
+  differs between traditions are not covered. No translation manifest says which Psalm
+  numbering it uses; the reader keeps an explicit table (see
+  [READER-PLAN.md](READER-PLAN.md)).
+- **Psalm 151 is in `versify.json` (`lxx_only`) but in no shipped pack,** so it cannot be
+  read.
 - **Year 0 is assumed.** The Theographic dates use a year-0 convention; the pipeline
   does not yet assert that on every build.
 - **Pack delivery is undecided** for the two interlinear packs; see above.

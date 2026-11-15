@@ -217,7 +217,7 @@ add a language, copy `chrome-en` to `chrome-<bcp47>`, translate, and add a catal
 
 | File | Purpose |
 | --- | --- |
-| `versify.json` | Psalm numbering map between the Hebrew and Greek/Latin systems (`psalms.heb_to_lxx`, plus `lxx_only` for Psalm 151). |
+| `versify.json` | Psalm numbering map between the Hebrew and Greek/Latin systems (`psalms.heb_to_lxx`, plus `lxx_only` for Psalm 151). Chapters only, no verse boundaries. The reader applies it to translations it knows use Greek/Latin numbering (`douay-rheims`, `vulgata-clementina`), or whose manifest sets `"psalmNumbering": "septuagint"` (an optional field; `"hebrew"` otherwise). |
 | `canon-extensions.json` | The seven deuterocanonical books beyond the 66: OSIS code, name, chapter and verse counts, and `insertAfter` (Catholic ordering). |
 | `denominations/` | Preset schema and a neutral `default` preset. See [PRESETS.md](PRESETS.md). |
 

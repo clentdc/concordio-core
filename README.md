@@ -47,6 +47,7 @@ Concordio and Bible Explorer marks.
 | [docs/DATA.md](docs/DATA.md) | What is in each pack and where it came from |
 | [docs/PACK-SCHEMA.md](docs/PACK-SCHEMA.md) | Every file format |
 | [docs/LICENSES.md](docs/LICENSES.md) | What you may do, and what you owe |
+| [docs/READER-PLAN.md](docs/READER-PLAN.md) | What the reader does now and what is planned |
 | [docs/UPDATES.md](docs/UPDATES.md) | The weekly refresh; pinning a release |
 | [docs/LLM.md](docs/LLM.md) | A guide for AI agents (and [llms.txt](llms.txt)) |
 | [docs/THEOGRAPHIC-AUDIT.md](docs/THEOGRAPHIC-AUDIT.md) | The sources and chronology behind the dates |

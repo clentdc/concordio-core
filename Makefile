@@ -70,13 +70,17 @@ refresh-data:    ## Pull the latest Theographic and BSB, then rebuild those pack
 	$(MAKE) $(BSB_TXT)
 	for id in theographic bsb kjv; do $(PY) -I pipeline/build.py $(CACHE) --only $$id || exit 1; done
 
-check:           ## Run the data, licence, reserved-material and cookbook checks
+check:           ## Run the data, licence, reserved-material, cookbook and reader checks
 	node --check web/js/app.js
+	node --check web/js/versify.js
+	node --check web/js/canon.js
 	node --check web/sw.js
 	$(PY) -m json.tool web/manifest.webmanifest > /dev/null
 	$(PY) tests/test_data.py
 	$(PY) tests/test_licences.py
 	$(PY) tests/test_cookbook.py
+	node tests/test_versify.js
+	node tests/test_canon.js
 	$(PY) tests/test_reserved_material.py
 
 test: check      ## Alias for check
