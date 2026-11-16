@@ -11,6 +11,9 @@ other builders can start from a working kit instead of a blank page.
   Clementina.
 - The [Theographic Bible Metadata](https://github.com/robertrouse/theographic-bible-metadata)
   pack (books, people, places, events, chronology).
+- Two Hebrew/Greek interlinear packs (`stepbible`, `bsb-tables`, about 58 MB each), attached
+  to each tagged release with a `SHA256SUMS` file rather than stored in git
+  (`make fetch-release TAG=v0.1.0`), plus a short sample of each in `web/data/samples/`.
 - A plain vertical reader (HTML + CSS + JS). No visualizer, no 3D, no brand
   chrome — a blank canvas to build on.
 - i18n layer with English and Spanish interface packs.
@@ -48,7 +51,7 @@ Concordio and Bible Explorer marks.
 | [docs/PACK-SCHEMA.md](docs/PACK-SCHEMA.md) | Every file format |
 | [docs/LICENSES.md](docs/LICENSES.md) | What you may do, and what you owe |
 | [docs/READER-PLAN.md](docs/READER-PLAN.md) | What the reader does now and what is planned |
-| [docs/UPDATES.md](docs/UPDATES.md) | The weekly refresh; pinning a release |
+| [docs/UPDATES.md](docs/UPDATES.md) | The weekly refresh; pinning a release; fetching the interlinear packs |
 | [docs/LLM.md](docs/LLM.md) | A guide for AI agents (and [llms.txt](llms.txt)) |
 | [docs/THEOGRAPHIC-AUDIT.md](docs/THEOGRAPHIC-AUDIT.md) | The sources and chronology behind the dates |
 | [CHANGELOG.md](CHANGELOG.md) | What changed |
@@ -76,6 +79,8 @@ catalog summarises them. In particular:
 - **King James Version**: public domain in the United States; in the United Kingdom the Crown holds rights (see `NOTICE.md`).
 - **Theographic Bible Metadata**: CC-BY-SA 4.0.
 - **Interface strings (`chrome-en`, `chrome-es`)**: CC-BY-SA 4.0. The code is Apache-2.0; these text packs are share-alike.
+- **STEPBible interlinear (`stepbible`, release artifact and `stepbible-sample`)**: CC BY 4.0. Credit Tyndale House and STEPBible.
+- **BSB Translation Tables interlinear (`bsb-tables`, release artifact and `bsb-tables-sample`)**: public domain, with public-domain Strong's dictionaries.
 - **Slug lock (`pipeline/slug-lock.json`)**: CC-BY-SA 4.0. Concordio's curated, versioned mapping of every Theographic person, place and event to a stable, unique URL slug.
 
 CC-BY-SA is a copyleft (share-alike) licence. If you modify a data pack and

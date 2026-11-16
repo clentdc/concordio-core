@@ -9,6 +9,7 @@ the diff and merges; consumers pick up changes by moving to a new tagged release
 - [Refreshing by hand](#refreshing-by-hand)
 - [Pack versions and provenance](#pack-versions-and-provenance)
 - [For consumers: pin a release](#for-consumers-pin-a-release)
+- [Interlinear packs: release artifacts](#interlinear-packs-release-artifacts)
 - [Rollback](#rollback)
 - [Stability guarantees](#stability-guarantees)
 
@@ -29,7 +30,8 @@ setting *Allow GitHub Actions to create and approve pull requests* switched on. 
 used by the workflow are pinned to commit SHAs.
 
 The refresh deliberately covers only the packs stored in git. The large interlinear
-packs are not part of it.
+packs are not part of it: they are built when a release is cut (see
+[below](#interlinear-packs-release-artifacts)).
 
 ## Reviewing a refresh pull request
 
@@ -84,11 +86,63 @@ content hash, and move deliberately:
 A pack-only update never needs an application code change, provided the pack `schemaVersion`
 is unchanged. A schema change is a breaking release and will say so in the changelog.
 
+## Interlinear packs: release artifacts
+
+`stepbible` and `bsb-tables` are about 58 MB each, and a regenerated copy would be a new
+permanent copy in git history, so core does not commit them. Each tagged release (`v*`)
+carries them instead, built by `.github/workflows/release.yml`:
+
+| Asset | What |
+| --- | --- |
+| `concordio-pack-stepbible-<tag>.tar.gz` | The `stepbible` pack (about 9.6 MB; 58 MB unpacked) |
+| `concordio-pack-bsb-tables-<tag>.tar.gz` | The `bsb-tables` pack (about 9.4 MB; 58 MB unpacked) |
+| `SHA256SUMS` | One `<sha256>  <file>` line per tarball |
+
+The release notes list each pack's `version`, upstream revision and licence. A tarball holds a
+single top-level directory (`stepbible/` or `bsb-tables/`), so it unpacks into
+`web/data/packs/`.
+
+**Fetch and verify** (no GitHub login needed, Python 3 only):
+
+```bash
+make fetch-release TAG=v0.1.0          # both packs into web/data/packs/
+python3 -I pipeline/release.py fetch --tag v0.1.0 --pack bsb-tables --dest ./packs
+```
+
+`fetch` downloads `SHA256SUMS`, then each tarball, and checks every hash **before** it unpacks
+anything. It refuses archives with paths outside the pack directory. It then replaces
+`<dest>/<id>/`. Each pack's `manifest.json` carries its own licence and attribution.
+
+**What the hash proves.** `SHA256SUMS` is published beside the tarballs, so it catches a
+damaged or swapped download, not a compromised release. To pin against that, record the hash
+in your own repository when you adopt a tag, and have your build check it. `fetch` accepts
+`--sums-sha256 <hash of SHA256SUMS>` for exactly that. The hash of each tarball is also in the
+release notes.
+
+**How a release is built.** `make release-packs` fetches the pinned sources (STEPBible-Data at
+a fixed commit; the BSB Translation Tables and Strong's XML by SHA-256) and builds the two packs
+into `dist/packs/` with `--stage`, which leaves `index.json` alone. With
+`CONCORDIO_STRICT_PINS` set, as it is in the release workflow, a source whose hash differs from
+the reviewed pin stops the build instead of warning. `make release-assets VERSION=<tag>` then
+writes the tarballs: entries sorted, times and owners fixed, no gzip timestamp, so the same
+packs give the same bytes. Anyone can rebuild and compare: the pack files are byte-identical
+for the same sources, and the tarball is too on the same zlib.
+
+**Cutting a release.** Update `CHANGELOG.md` (a `## X.Y.Z` section), merge to `main`, then push an
+annotated tag `vX.Y.Z` on that commit. The workflow refuses a tag that is not on `main` or has
+no changelog section. Run the workflow by hand first (Actions, Release, Run workflow) for a dry
+run: it builds and checks everything and uploads the files as a workflow artifact, but publishes
+nothing. Never move or delete a published tag; fix forward with the next patch tag.
+
+**Samples.** `web/data/samples/` holds a short cut of each pack in git (3 John; Obadiah too in
+`bsb-tables-sample`), so a fresh clone has interlinear data without a download. Regenerate with
+`make release-packs samples`; see [DATA.md](DATA.md#what-is-in-the-repository).
+
 ## Rollback
 
 Everything is a git revert. Revert the merge commit of a bad refresh, or tag a fix.
 Consumers pinned to an earlier release are unaffected. Old release tags and their
-bytes stay available.
+bytes (including the interlinear tarballs) stay available.
 
 ## Stability guarantees
 

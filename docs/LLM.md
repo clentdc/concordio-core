@@ -23,6 +23,7 @@ in [../llms.txt](../llms.txt).
 | When did event E happen? | `theographic/events.json`, `dt` (a string; year 0 exists) |
 | Dictionary text for an entity | `theographic/dictionary.json`, keyed by entity id |
 | Psalm numbering in another tradition | `web/data/packs/versify.json` |
+| The Hebrew or Greek words of a verse, with Strong's numbers | An interlinear pack: `interlinear/<Book>.json`, key `X`. In a fresh clone only the samples exist (`web/data/samples/`: 3 John in both, Obadiah in `bsb-tables-sample`); the full packs come from a release, see below |
 
 Fourteen runnable recipes are in [QUERY-COOKBOOK.md](QUERY-COOKBOOK.md). Format details
 are in [PACK-SCHEMA.md](PACK-SCHEMA.md).
@@ -47,10 +48,21 @@ are in [PACK-SCHEMA.md](PACK-SCHEMA.md).
 
 ## What is not here
 
-No commentary, no cross-references, no interlinear text in the git repository (the
-interlinear packs are built locally, see [DATA.md](DATA.md)), no entity data for the
-deuterocanonical books, and no search index. Build what you need on top; the files are
+No commentary, no cross-references, no entity data for the
+deuterocanonical books, and no search index. The full interlinear packs are not in the git
+tree (see below); only two short samples are. Build what you need on top; the files are
 small enough to load whole.
+
+## Interlinear data
+
+The two full interlinear packs (`stepbible`, `bsb-tables`, about 58 MB each) are attached to
+each tagged release as tarballs with a `SHA256SUMS` file. To use them, run
+`make fetch-release TAG=<tag>`: it downloads the release, checks every hash, and unpacks into
+`web/data/packs/` (git ignores those two directories). Read the pack's `manifest.json` first:
+its `shape` field says how the two packs differ (gloss kind, morphology scheme, Strong's
+format, verse numbering), so do not mix them within a verse. Samples are cuts of the same
+data, never edited: a verse in `stepbible-sample` equals that verse in `stepbible`. Cite the
+pack id and `version` (a sample's version ends in `-sample`). Details: [UPDATES.md](UPDATES.md).
 
 ## Staying current
 

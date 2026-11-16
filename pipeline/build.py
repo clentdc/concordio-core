@@ -2,6 +2,9 @@
 
 Usage: ``python3 -I pipeline/build.py [cache_dir]``
 
+``--stage DIR`` builds into ``DIR/<pack id>/`` instead of ``web/data/packs/`` and leaves
+``index.json`` alone. The release workflow uses it for the two large interlinear packs.
+
 ``cache_dir`` defaults to ``.cache/``. Each adapter reads its upstream from a known
 subdirectory (``.cache/bsb/bsb.txt``, ``.cache/theographic-bible-metadata/json/``, …)
 and writes under its pack's ``out`` directory.
@@ -61,6 +64,8 @@ def main(argv=None):
                    help="Pack catalog root (default: web/data/packs)")
     p.add_argument("--only", metavar="PACK_ID",
                    help="Rebuild just this pack and patch its row in index.json (other rows are kept)")
+    p.add_argument("--stage", metavar="DIR",
+                   help="Build into DIR/<pack dir> instead of web/data/packs/, and do not touch index.json")
     args = p.parse_args(argv)
 
     cache = str(Path(args.cache).resolve())
@@ -69,9 +74,9 @@ def main(argv=None):
     for entry, mod in _topo(PACKS):
         if args.only and mod.ID != args.only:
             continue
-        out_dir = str(ROOT / entry["out"])
+        out_dir = str(Path(args.stage).resolve() / Path(entry["out"]).name) if args.stage else str(ROOT / entry["out"])
         os.makedirs(out_dir, exist_ok=True)
-        print(f"-> building {mod.ID} ({mod.KIND}) in {entry['out']} …", flush=True)
+        print(f"-> building {mod.ID} ({mod.KIND}) in {os.path.relpath(out_dir)} …", flush=True)
         manifest = mod.build(cache, out_dir)
         # Each adapter returns a manifest dict ready to write.
         write_json(os.path.join(out_dir, "manifest.json"), manifest, pretty=True)
@@ -85,6 +90,9 @@ def main(argv=None):
             "sizeBytes": manifest["sizeBytes"],
         })
 
+    if args.stage:
+        print(f"\nStaged {len(catalog)} pack(s) in {args.stage}; index.json untouched")
+        return
     index_path = ROOT / args.out / "index.json"
     if args.only:
         # index.json also lists packs this script does not build (chrome, translations, roadmap

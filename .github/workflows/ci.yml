@@ -34,3 +34,7 @@ jobs:
         run: node tests/test_versify.js
       - name: Canon selector (canon-extensions.json in the reader)
         run: node tests/test_canon.js
+      - name: Interlinear samples (web/data/samples) hold to the pack rules
+        run: python3 tests/test_interlinear_samples.py
+      - name: Release path (reproducible tarballs, verified fetch, locked-down workflow)
+        run: python3 tests/test_release.py

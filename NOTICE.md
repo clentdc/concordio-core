@@ -14,6 +14,16 @@ pack retains its own licence as named in its `manifest.json`.
 | `douay-rheims` — Douay-Rheims Bible, Challoner revision (1752) | eBible.org | Public domain |
 | `vulgata-clementina` — Vulgata Clementina (1592) | eBible.org | Public domain |
 
+## Interlinear data
+
+Two Hebrew/Greek interlinear packs are attached to tagged releases rather than stored in git
+(`docs/UPDATES.md`), and a short sample of each is committed under `web/data/samples/`.
+
+| Pack | Source | Licence |
+| --- | --- | --- |
+| `stepbible` and `stepbible-sample` — STEPBible interlinear | Data created by www.STEPBible.org based on work at Tyndale House Cambridge. https://github.com/STEPBible/STEPBible-Data | CC-BY 4.0 (the Hebrew definitions caveat is in `docs/LICENSES.md`) |
+| `bsb-tables` and `bsb-tables-sample` — BSB Translation Tables interlinear | https://bereanbible.com/bsb_tables.tsv, with Strong's concise dictionaries (Open Scriptures, https://github.com/openscriptures/strongs) | Public domain (Berean Bible Translation Committee dedication of 2023-04-30; Strong's dictionaries) |
+
 ## Interface strings
 
 | Pack | Source | Licence |

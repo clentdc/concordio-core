@@ -47,11 +47,31 @@ Under `web/data/packs/`:
 Under `pipeline/`: the adapters that build all of the above, and `slug-lock.json`, the
 locked URL slug for every person, place and event (CC BY-SA 4.0).
 
-**Built by the pipeline but not stored in git yet:** the `stepbible` interlinear pack
+**Delivered as release artifacts, not stored in git:** the `stepbible` interlinear pack
 (Hebrew/Greek words with Strong's numbers and morphology, STEPBible, CC BY 4.0) and the
 `bsb-tables` interlinear pack (the BSB Translation Tables with public-domain Strong's
-data). Each is about 58 MB. How to ship them (release artifacts or git) is an open
-decision; until then `make fetch && make data` builds them on your machine.
+data). Each is about 58 MB unpacked (about 9.5 MB as a tarball). Every tagged release
+attaches `concordio-pack-<id>-<tag>.tar.gz` for each, plus a `SHA256SUMS` file. Fetch and
+verify with `make fetch-release TAG=v0.1.0`; see [UPDATES.md](UPDATES.md#interlinear-packs-release-artifacts).
+They are built in CI from pinned upstream sources (`make release-packs`), so anyone can
+also rebuild them and compare hashes.
+
+**Samples in git:** `web/data/samples/` holds a small cut of each interlinear pack so a
+fresh clone has real interlinear data without a download.
+
+| Sample | Cut of | Books | Licence |
+| --- | --- | --- | --- |
+| `stepbible-sample` | `stepbible` | 3 John (14 verses, Greek) | CC BY 4.0 |
+| `bsb-tables-sample` | `bsb-tables` | 3 John and Obadiah (35 verses, Greek and Hebrew) | Public domain |
+
+A sample is cut by `pipeline/samples.py`, never edited: its book files are byte-identical to
+the full pack's, and its `strongs.json` and `morph_codes.json` keep only the entries those
+books use. Each has its own manifest, version (`<full version>-sample`) and a `sample` block
+naming its parent. They are not catalog packs: they are not in `index.json` and live outside
+`web/data/packs/`, so a reader never mistakes them for the full pack. Hebrew is in the
+`bsb-tables` sample only: the STEPBible sample is Greek so that it carries none of
+STEPBible's Hebrew definitions, which have an open permission caveat
+([LICENSES.md](LICENSES.md#attribution-cc-by-data)).
 
 ## Sources
 
@@ -84,7 +104,9 @@ markup per translation. A translation that renames an entity (such as "Simon Pet
 ## Building the data
 
 ```bash
-make data            # fetch every source into .cache/, then build every pack
+make data            # fetch every source into .cache/, then build every pack (including the big interlinear ones)
+make release-packs   # build only the two interlinear packs, into dist/packs/ (index.json untouched)
+make samples         # recut web/data/samples/ from dist/packs/
 make refresh-data    # the weekly job: pull the latest Theographic and BSB, rebuild theographic, bsb, kjv
 make check           # data, licence and reserved-material checks
 ```
@@ -96,7 +118,9 @@ records the upstream revision, licence and list of modifications. The build orde
 
 **Warning:** `make data` writes `web/data/packs/index.json`, which also holds
 hand-maintained licence rows. In a checkout where `index.json` matters, run a single
-pack instead: `python3 -I pipeline/build.py .cache --only theographic`.
+pack instead: `python3 -I pipeline/build.py .cache --only theographic`. The two interlinear
+packs have no catalog row, so build them with `make release-packs`, which stages them in
+`dist/packs/` and never touches `index.json`.
 
 ## Known gaps
 
@@ -121,7 +145,10 @@ pack instead: `python3 -I pipeline/build.py .cache --only theographic`.
   read.
 - **Year 0 is assumed.** The Theographic dates use a year-0 convention; the pipeline
   does not yet assert that on every build.
-- **Pack delivery is undecided** for the two interlinear packs; see above.
+- **STEPBible's lexicon does not cover every number its words use.** In the `stepbible`
+  pack some extended Strong's numbers on words (for example `G3165`, `H3069`) have no
+  entry in `strongs.json`, and many Hebrew morphology codes have no entry in
+  `morph_codes.json`. Nothing is filled in; look a number up and handle a miss.
 
 ## Adding a source
 

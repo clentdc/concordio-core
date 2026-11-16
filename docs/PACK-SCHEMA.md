@@ -27,7 +27,7 @@ directory plus one row in the catalog, with no code change.
 | `translation` | Verse text keyed by OSIS id | `bsb`, `kjv`, `darby`, `douay-rheims`, `vulgata-clementina` |
 | `entities` | Books, chapters, people, places, events, dictionary | `theographic` |
 | `chrome` | Interface strings for one language | `chrome-en`, `chrome-es` |
-| `interlinear` | Word-by-word Hebrew/Greek with Strong's numbers and morphology | Built by the pipeline (`stepbible`, `bsb-tables`), not stored in git yet |
+| `interlinear` | Word-by-word Hebrew/Greek with Strong's numbers and morphology | Release artifacts (`stepbible`, `bsb-tables`); small samples in `web/data/samples/` |
 | `lexicon`, `morph-key`, `geo`, `xrefs`, `imagery` | Reserved kinds | None shipped |
 
 Several packs of one kind can coexist. A reader lets the user pick the active
@@ -182,9 +182,13 @@ Events add: `dt` (start date) and `pp` (participant person ids).
 ## Interlinear pack
 
 Built by the pipeline from STEPBible (`stepbible`) or the BSB Translation Tables
-(`bsb-tables`). Large (about 58 MB each), so they are not stored in git yet; run
-`make fetch && make data` to produce them locally. One file per book at
-`interlinear/<Book>.json`, from OSIS id to an array of word records in reading order:
+(`bsb-tables`). Large (about 58 MB each), so they are not stored in git: each tagged release
+attaches them as tarballs with a `SHA256SUMS` file (`make fetch-release TAG=v0.1.0`; see
+[UPDATES.md](UPDATES.md#interlinear-packs-release-artifacts)), and `make release-packs`
+rebuilds them. A tarball holds one top-level directory, `<id>/`, so it unpacks into
+`web/data/packs/`. A short sample of each is committed in `web/data/samples/` (see below).
+One file per book at `interlinear/<Book>.json`, from OSIS id to an array of word records in
+reading order:
 
 ```json
 {
@@ -205,6 +209,23 @@ Built by the pipeline from STEPBible (`stepbible`) or the BSB Translation Tables
 - `strongs.json` maps a Strong's number to `{lemma, translit, pos, short, long}`;
   `morph_codes.json` maps each exact morphology code to prose.
 - Words with no Strong's number keep `strongs: ""`. Nothing is filled in.
+
+### Interlinear samples
+
+`web/data/samples/<id>/` holds `stepbible-sample` and `bsb-tables-sample`: the same pack
+format, cut down to one or two short books (`pipeline/samples.py`). A sample's manifest is the
+full pack's with a different `id`, a `version` of `<full version>-sample`, its own `counts` and
+`sizeBytes`, and a `sample` block:
+
+```json
+"sample": { "of": "stepbible", "ofVersion": "2026.10", "books": ["3John"], "note": "…" }
+```
+
+Book files are byte-identical to the full pack's; `strongs.json` and `morph_codes.json` keep
+only the entries the sampled words use. Samples are **not** catalog packs: they are not listed
+in `index.json`, and the rule that an interlinear pack has all 66 books applies to full packs
+only. `tests/test_interlinear_samples.py` holds them to the manifest, licence, size and word
+rules, and checks them against a fresh cut of the full pack when one is on disk.
 
 ## Chrome pack
 

@@ -13,3 +13,7 @@ build/
 
 # Sources fetched by the pipeline (make fetch) are never published
 .cache/
+
+# Release-delivered packs (about 58 MB each): built by CI, attached to tagged releases, never committed.
+web/data/packs/stepbible/
+web/data/packs/bsb-tables/

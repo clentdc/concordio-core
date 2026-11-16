@@ -26,8 +26,8 @@ disagreeing.
 | `theographic` (people, places, events, books, chapters, dictionary) | CC BY-SA 4.0 | Credit, and share modifications alike. |
 | `pipeline/slug-lock.json` | CC BY-SA 4.0 | Concordio's slug mapping, a layer over Theographic. Same terms. |
 | `chrome-en`, `chrome-es`, `versify.json`, `canon-extensions.json` | CC BY-SA 4.0 | Concordio-authored. Credit, and share modifications alike. |
-| `stepbible` interlinear (built locally) | CC BY 4.0 | Credit Tyndale House and STEPBible. One definitions caveat, below. |
-| `bsb-tables` interlinear (built locally) | Public domain | BSB tables and Strong's dictionaries. |
+| `stepbible` interlinear (release artifact; sample in git) | CC BY 4.0 | Credit Tyndale House and STEPBible. One definitions caveat, below. |
+| `bsb-tables` interlinear (release artifact; sample in git) | Public domain | BSB tables and Strong's dictionaries. |
 
 ## Code
 

@@ -32,6 +32,7 @@ normalised (the Open Scriptures guidance warns against NFC, and the bytes are ke
 from __future__ import annotations
 
 import csv
+import os
 import re
 import sys
 import unicodedata
@@ -73,6 +74,10 @@ def _warn(msg: str) -> None:
 def _check_hash(path: Path, expected: str, what: str) -> str:
     got = sha256_file(path)
     if got != expected:
+        if os.environ.get("CONCORDIO_STRICT_PINS"):
+            # The release build sets this: a release must be built from the bytes that were reviewed.
+            raise SystemExit(f"{ID}: {what} SHA-256 {got} differs from the reviewed pin {expected}; "
+                             "refusing to build with CONCORDIO_STRICT_PINS set.")
         _warn(f"{what} SHA-256 {got[:12]}… differs from the reviewed pin {expected[:12]}…; "
               "re-check the licence page and update the pin in the adapter once reviewed.")
     return got

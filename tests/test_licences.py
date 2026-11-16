@@ -19,6 +19,13 @@ import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PACKS = ROOT / "web" / "data" / "packs"
+SAMPLES = ROOT / "web" / "data" / "samples"   # committed interlinear samples: not catalog packs, same licence rules
+sys.path.insert(0, str(ROOT))
+from pipeline.packs import PACKS as BUILD  # noqa: E402
+
+# Packs delivered as release artifacts are built into web/data/packs/ on a developer's machine (git
+# ignores them) and have no catalog row; every other manifest there must be listed in index.json.
+RELEASE_DELIVERED = {pathlib.Path(e["out"]).name for e in BUILD if e.get("delivery") == "release"}
 PROSE = [ROOT / "README.md", ROOT / "NOTICE.md", *sorted((ROOT / "docs").glob("*.md"))]
 
 
@@ -49,7 +56,7 @@ def mentioned_families(line):
 def main():
     problems = []
     packs = {}
-    for mf in sorted(PACKS.glob("*/manifest.json")):
+    for mf in sorted([*PACKS.glob("*/manifest.json"), *SAMPLES.glob("*/manifest.json")]):
         m = json.loads(mf.read_text(encoding="utf-8"))
         lic = m.get("license")
         if not lic:
@@ -69,6 +76,8 @@ def main():
         elif family(entry.get("license", "")) != packs[pid][1]:
             problems.append(f"index.json: '{pid}' license '{entry.get('license')}' differs from its manifest ({packs[pid][2]})")
     for pid in packs:
+        if (SAMPLES / pid / "manifest.json").exists() or pid in RELEASE_DELIVERED:
+            continue
         if pid not in {e["id"] for e in index["packs"]}:
             problems.append(f"web/data/packs/{pid} has a manifest but is not in index.json")
 
