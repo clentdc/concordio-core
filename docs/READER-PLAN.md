@@ -76,15 +76,16 @@ notes (the reader falls back to English). Entity data
 
 - **Where it lives.** Per word, in the interlinear packs: `interlinear/<Book>.json`, field
   `translit` next to `src`, `gloss`, `strongs`, `lemma`, `morph`. `strongs.json` carries a
-  `translit` for each Strong's headword. Neither pack is in git (about 58 MB each), so
-  development needs `make fetch && make data` in a scratch checkout
-  (`python3 -I pipeline/build.py .cache --only stepbible`, then restore `index.json`), or a
-  small hand-made fixture.
+  `translit` for each Strong's headword. Neither full pack is in git (about 58 MB each; they are
+  release artifacts: `make fetch-release TAG=<tag>`), but `web/data/samples/` holds a real
+  cut of each (3 John; Obadiah too in `bsb-tables-sample`), which is enough to build and test
+  against.
 - **Reader work.** A "Show original words" toggle that loads the one-book file for the
   current book and shows, under each verse, a row of `src` / `translit` / `gloss`. It needs
   the interlinear verse numbering to match the translation's (the manifest's `shape` field
   records the differences, and Psalm superscriptions are the likely trouble spot), and a
-  delivery decision for the two big packs (DATA.md "Pack delivery is undecided").
+  way to load the full packs, which are not in the packs catalog (UPDATES.md "Interlinear
+  packs: release artifacts").
 - **A shared transliterator** (for text that has no interlinear row: entity aliases,
   lemmas, search input) is a separate piece of work. It needs the owner to choose a scheme
   (the two packs already differ: STEPBible writes `be.re.Shit`, the BSB tables use another

@@ -11,8 +11,13 @@ SXML    := $(CACHE)/strongs-xml
 # Pinned inputs for the bsb-tables interlinear pack (see pipeline/adapters/bsb_tables.py).
 BTAB_SHA  := aa2a9a0f004d015738cd1839c7c56c3be2549e0d4f4537090c2017268c223c60
 STRONGS_C := 0acd2f251c2d35ff8db2dece4e0593979d3ac223
+# STEPBible-Data commit the stepbible pack is built from (the revision the packs were first
+# reviewed and shipped at). Moving it changes the pack: bump the adapter version and CHANGELOG too.
+STEP_C    := be4191f0082aeedddb0eff0c02c966292b2bd641
+DIST      ?= dist
 
-.PHONY: help serve data refresh-data check test fetch fetch-theographic fetch-bsb fetch-stepbible fetch-bsb-tables
+.PHONY: help serve data refresh-data check test fetch fetch-theographic fetch-bsb fetch-stepbible fetch-bsb-tables \
+        release-packs release-assets samples fetch-release
 
 help:            ## List the available tasks
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*##/ -/'
@@ -28,11 +33,13 @@ $(BSB_TXT):
 	mkdir -p $(CACHE)/bsb
 	curl -fsSL -o $(BSB_TXT) https://bereanbible.com/bsb.txt
 
-# STEPBible is a large repo; sparse-clone only the folders we use.
+# STEPBible is a large repo; sparse-clone only the folders we use, at the pinned commit.
 $(STEP):
 	mkdir -p $(STEP)
 	cd $(STEP) && git clone --depth 1 --filter=blob:none --sparse https://github.com/STEPBible/STEPBible-Data.git . \
-	  && git sparse-checkout set "Translators Amalgamated OT+NT" "Lexicons" "Morphology codes"
+	  && git sparse-checkout set "Translators Amalgamated OT+NT" "Lexicons" "Morphology codes" \
+	  && git fetch --depth 1 origin $(STEP_C) && git checkout -q $(STEP_C) \
+	  && test "$$(git rev-parse HEAD)" = "$(STEP_C)"
 
 # BSB Translation Tables (about 85 MB, unversioned upstream: the hash is checked and a mismatch warns)
 # and the two Strong's dictionary XML files, pinned to an openscriptures/strongs commit.
@@ -70,6 +77,22 @@ refresh-data:    ## Pull the latest Theographic and BSB, then rebuild those pack
 	$(MAKE) $(BSB_TXT)
 	for id in theographic bsb kjv; do $(PY) -I pipeline/build.py $(CACHE) --only $$id || exit 1; done
 
+# Release path. The two interlinear packs (about 58 MB each) are not stored in git: CI builds
+# them from the pinned sources into $(DIST)/packs/ and attaches tarballs to each tagged release
+# (.github/workflows/release.yml). Pin drift fails these targets instead of warning. Use a fresh
+# $(DIST)/: a leftover file from an older build makes release-assets fail its size check.
+release-packs: fetch-stepbible fetch-bsb-tables  ## Build stepbible and bsb-tables into $(DIST)/packs/ (index.json untouched)
+	for id in stepbible bsb-tables; do CONCORDIO_STRICT_PINS=1 $(PY) -I pipeline/build.py $(CACHE) --stage $(DIST)/packs --only $$id || exit 1; done
+
+release-assets:  ## Make the release tarballs, SHA256SUMS and notes in $(DIST)/release/ (VERSION=v0.1.0; run release-packs first)
+	$(PY) -I pipeline/release.py pack --version "$(VERSION)" --packs $(DIST)/packs --out $(DIST)/release
+
+samples:         ## Regenerate the committed interlinear samples in web/data/samples/ from the staged full packs
+	$(PY) -I pipeline/samples.py --packs $(DIST)/packs
+
+fetch-release:   ## Download a release's interlinear packs, verify SHA256SUMS, unpack into web/data/packs/ (TAG=v0.1.0)
+	$(PY) -I pipeline/release.py fetch --tag "$(TAG)"
+
 check:           ## Run the data, licence, reserved-material, cookbook and reader checks
 	node --check web/js/app.js
 	node --check web/js/versify.js
@@ -79,6 +102,8 @@ check:           ## Run the data, licence, reserved-material, cookbook and reade
 	$(PY) tests/test_data.py
 	$(PY) tests/test_licences.py
 	$(PY) tests/test_cookbook.py
+	$(PY) tests/test_interlinear_samples.py
+	$(PY) tests/test_release.py
 	node tests/test_versify.js
 	node tests/test_canon.js
 	$(PY) tests/test_reserved_material.py

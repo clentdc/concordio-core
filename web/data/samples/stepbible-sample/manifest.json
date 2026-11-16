@@ -1,0 +1,43 @@
+{
+  "caveats": [],
+  "counts": {
+    "books": 1,
+    "morphCodes": 104,
+    "strongs": 101,
+    "verses": 14,
+    "words": 210
+  },
+  "fetchHash": "1514184727d53c3ab66276dc69a23bbce1f45c61d0679845228d2051b8e72c63",
+  "files": {
+    "interlinear": "interlinear/*.json",
+    "morphCodes": "morph_codes.json",
+    "strongs": "strongs.json"
+  },
+  "id": "stepbible-sample",
+  "kind": "interlinear",
+  "license": {
+    "attribution": "Data created by www.STEPBible.org based on work at Tyndale House Cambridge, CC BY 4.0. Source: https://STEPBible.github.io/STEPBible-Data (revision be4191f). Changes: see source.modifications.",
+    "name": "Creative Commons Attribution 4.0 International",
+    "spdx": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "name": "STEPBible interlinear (TAHOT + TAGNT + TBESH + TBESG + TEHMC + TEGMC): sample (3John)",
+  "requires": [],
+  "sample": {
+    "books": [
+      "3John"
+    ],
+    "note": "A cut of the full pack, committed to git so a fresh clone has interlinear data. Book files are byte-identical to the full pack's; strongs.json and morph_codes.json keep only the entries these books use. The full pack ships as a release artifact (docs/UPDATES.md).",
+    "of": "stepbible",
+    "ofVersion": "2026.10"
+  },
+  "schemaVersion": 1,
+  "sizeBytes": 101858,
+  "source": {
+    "modifications": "TSV columns parsed; mainline reading selected per word (NA27/28 for NT, Leningrad for OT); Hebrew slashed morphemes collapsed into a composite word form; primary Strong's extracted from brace-marked primary form; HTML stripped from lexicon long entries and truncated to 600 chars; morph codes keyed by exact compound string. Sample: restricted to 3John; lexicon and morph-code files cut to the entries those books use.",
+    "revision": "be4191f",
+    "upstream": "https://github.com/STEPBible/STEPBible-Data"
+  },
+  "sourceRef": "be4191f",
+  "version": "2026.10-sample"
+}

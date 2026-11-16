@@ -2,7 +2,7 @@
 
 > A static, offline, open-licensed Bible dataset: five translations keyed by OSIS verse id, plus 3,067 people, 1,298 places and 450 events linked to the verses that name them. No server, no API key; read the JSON files directly.
 
-Start with `web/data/packs/index.json`, then each pack's `manifest.json`. Verses are keyed `Book.chapter.verse` (e.g. `John.3.16`). Never invent an entity-to-verse link the data does not contain; join on `slug` or `id`, never on display name.
+Start with `web/data/packs/index.json`, then each pack's `manifest.json`. Verses are keyed `Book.chapter.verse` (e.g. `John.3.16`). Never invent an entity-to-verse link the data does not contain; join on `slug` or `id`, never on display name. The two large interlinear packs (Hebrew/Greek words with Strong's numbers) are release artifacts, not in the git tree; `web/data/samples/` holds short samples and `make fetch-release TAG=<tag>` fetches the full packs.
 
 ## Docs
 
@@ -11,7 +11,7 @@ Start with `web/data/packs/index.json`, then each pack's `manifest.json`. Verses
 - [Pack schema](docs/PACK-SCHEMA.md): every file format
 - [Data](docs/DATA.md): what is in each pack and where it came from
 - [Licences](docs/LICENSES.md): public domain texts, CC BY-SA 4.0 data, Apache-2.0 code
-- [Updates](docs/UPDATES.md): weekly refresh and pinning a release
+- [Updates](docs/UPDATES.md): weekly refresh, pinning a release, and fetching the interlinear packs
 
 ## Optional
 

@@ -3,7 +3,7 @@
  * pack catalog and per-pack manifests are network-first so updates land.
  * Bump CACHE_VERSION with any change under web/.
  */
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE = `concordio-core-${CACHE_VERSION}`;
 const PRECACHE = [
   './',
