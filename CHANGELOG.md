@@ -1,11 +1,16 @@
 # Changelog
 
-All notable changes to Concordio Core. This project will follow
-[semantic versioning](https://semver.org/) from its first tagged release: a change to a
-pack's `schemaVersion` or to a slug is a major version; new packs and data refreshes
-are minor or patch.
+All notable changes to Concordio Core. This project follows
+[semantic versioning](https://semver.org/): a change to a pack's `schemaVersion` or to a
+slug is a major version; new packs and data refreshes are minor or patch. Each tagged release
+also carries the two large interlinear packs as tarballs with a `SHA256SUMS` file
+([docs/UPDATES.md](docs/UPDATES.md#interlinear-packs-release-artifacts)).
 
-## Unreleased (toward 0.1.0)
+## Unreleased
+
+## 0.1.0 (2026-11-15)
+
+First tagged release.
 
 ### Changed
 
