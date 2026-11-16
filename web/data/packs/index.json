@@ -4,11 +4,11 @@
     {
       "id": "theographic",
       "kind": "entities",
-      "version": "3d8aa2e-full-s1",
+      "version": "381aef2-full-s1",
       "required": true,
       "optional": false,
       "default": false,
-      "sizeBytes": 2976845,
+      "sizeBytes": 2977049,
       "license": "CC-BY-SA-4.0",
       "attribution": "Theographic Bible Metadata (Robert Rouse). https://github.com/robertrouse/theographic-bible-metadata"
     },
@@ -32,7 +32,7 @@
       "language": "en",
       "languageName": "English",
       "name": "King James Version",
-      "version": "theographic-3d8aa2e",
+      "version": "theographic-381aef2",
       "required": false,
       "optional": true,
       "default": false,
